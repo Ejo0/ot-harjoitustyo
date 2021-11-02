@@ -12,3 +12,5 @@ Tiedostosta *"komentorivi.txt"* löytyy aiemmin tehdyn harjoituksen kansiorakenn
 [gitlog.txt](https://github.com/Ejo0/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
 
 [komentorivi.txt](https://github.com/Ejo0/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
+
+_Viikkoa 1 varten vielä pieni kursivointi_
