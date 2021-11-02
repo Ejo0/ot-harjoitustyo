@@ -1,0 +1,113 @@
+commit 41705e9a3970f021c7426aee6f86cc74978528a3
+Author: Erno Jokela <38183216+Ejo0@users.noreply.github.com>
+Date:   Tue Nov 2 16:48:24 2021 +0200
+
+    Poistettiin ja uudelleennimettiin tiedostoja
+
+ tiedostoja/file2.txt                 | 0
+ tiedostoja/{file1.txt => file22.txt} | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 5fb9e5044547fdac544eee55f20be1ad2f84b8fa
+Author: Erno Jokela <38183216+Ejo0@users.noreply.github.com>
+Date:   Tue Nov 2 16:43:06 2021 +0200
+
+    Lisättiin kansio ja tiedostoja
+
+ tiedostoja/file1.txt | 0
+ tiedostoja/file2.txt | 0
+ tiedostoja/file3.txt | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 7bcf649ed0721ec8ba2519913570b4971bc2e6f6
+Author: Erno Jokela <38183216+Ejo0@users.noreply.github.com>
+Date:   Tue Nov 2 16:39:08 2021 +0200
+
+    Muokattiin tiedostojen eka.txt ja kolmas.txt sisältöjä
+
+ eka.txt    | 2 +-
+ kolmas.txt | 4 +++-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
+
+commit cada00ed764bc97eb7d6d247c08d45d5520029aa
+Author: Erno Jokela <38183216+Ejo0@users.noreply.github.com>
+Date:   Tue Nov 2 16:37:07 2021 +0200
+
+    Uudelleennimettiin tiedosto.txt -> eka.txt
+
+ tiedosto.txt => eka.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit f86b46ad7cd0f9acfee6e210004e58a00ff75c0e
+Author: Erno Jokela <38183216+Ejo0@users.noreply.github.com>
+Date:   Tue Nov 2 16:35:44 2021 +0200
+
+    poistettiin toinen.txt
+
+ toinen.txt | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit f97528ed6476df14a3bab74d64af235e57afd37c
+Author: Erno Jokela <38183216+Ejo0@users.noreply.github.com>
+Date:   Tue Nov 2 16:33:48 2021 +0200
+
+    Muokattiin tiedosto.txt sisältöä
+
+ tiedosto.txt | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+commit a86fe9cbff4c568c98e929eec1d1bbd13b2a3d59
+Author: Erno Jokela <38183216+Ejo0@users.noreply.github.com>
+Date:   Tue Nov 2 16:32:24 2021 +0200
+
+    lisättiin reilusti sisältöä kohteeseen tiedosto.txt
+
+ tiedosto.txt | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+commit b7a058ef5734a87d257d9b5b8cc8138c76e3f60a
+Author: Erno Jokela <38183216+Ejo0@users.noreply.github.com>
+Date:   Tue Nov 2 16:30:45 2021 +0200
+
+    Lisättiin stuff/neljas.txt
+
+ stuff/neljas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 8e3999c460b1d128c751c85c3309e2618ec78299
+Author: Erno Jokela <38183216+Ejo0@users.noreply.github.com>
+Date:   Tue Nov 2 16:29:37 2021 +0200
+
+    muokattiin tiedostoja toinen.txt ja kolmas.txt
+
+ kolmas.txt | 1 +
+ toinen.txt | 1 +
+ 2 files changed, 2 insertions(+)
+
+commit 6f5ba8eb9e21d51e28905e9dfc72d6d88e44478c
+Author: Erno Jokela <38183216+Ejo0@users.noreply.github.com>
+Date:   Tue Nov 2 16:28:08 2021 +0200
+
+    lisättiin kolmas.txt
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 3ac1becd2790fb02ec824424124c4c0120acfca5
+Author: Erno Jokela <38183216+Ejo0@users.noreply.github.com>
+Date:   Tue Nov 2 16:26:57 2021 +0200
+
+    muutos ja lisäys
+
+ tiedosto.txt | 1 +
+ toinen.txt   | 0
+ 2 files changed, 1 insertion(+)
+
+commit 10ee48372552d992f5368e4d2a8c30cb460d912f
+Author: Erno Jokela <38183216+Ejo0@users.noreply.github.com>
+Date:   Tue Nov 2 16:25:51 2021 +0200
+
+    tiedosto.txt luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
