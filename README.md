@@ -1,11 +1,6 @@
 # Readme
 
-Tästä hakemistosta löytyy **ot2021** kurssiin liittyviä harjoituksia.
-Tiedostosta *"komentorivi.txt"* löytyy aiemmin tehdyn harjoituksen kansiorakenne.
-
-### Muita huomioita
-
-> Infon lisäksi tässä tiedostossa testaillaan markdown-nootaatioita
+Tästä hakemistosta löytyy **ot2021** kurssiin liittyviä harjoituksia. README.md-tiedostoa päivitetään kurssin edetessä.
 
 ### Viikko 1
 
@@ -13,6 +8,9 @@ Tiedostosta *"komentorivi.txt"* löytyy aiemmin tehdyn harjoituksen kansiorakenn
 
 [komentorivi.txt](https://github.com/Ejo0/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
 
-_Viikkoa 1 varten vielä pieni kursivointi_
 
-Testirivi paikalliseen repositorioon
+### Viikko 2
+
+[vaatimusmäärittely.md](https://github.com/Ejo0/ot-harjoitustyo/blob/master/documentation/vaatimusmaarittely.md)
+
+[työaikakirjanpito.md](https://github.com/Ejo0/ot-harjoitustyo/blob/master/documentation/tyoaikakirjanpito.md)
