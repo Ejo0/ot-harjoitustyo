@@ -1,0 +1,95 @@
+// Cool Class Diagram
+// ------------------
+ 
+[Monopoli|aloitus;vankila]
+[Monopoli]1-2..8 [Pelaaja]
+[Monopoli]1-1 [Pelilauta]
+[Monopoli]1-2 [Noppa]
+
+[Pelilauta]1-40[Ruutu]
+
+[Pelaaja]1-1[Pelinappula]
+
+[Pelinappula]0..8-1[Ruutu]
+[Ruutu|seuraavaRuutu]
+
+[Ruutu]^[Aloitus]
+[Ruutu]^[Vankila]
+[Ruutu]^[Sattuma ja yhteismaa]
+[Ruutu]^[Asemat ja laitokset]
+[Ruutu]^[Normaalit kadut]
+
+[Aloitus]->[Aloitustoiminto]
+[Vankila]->[Vankilatoiminto]
+[Sattuma ja yhteismaa]->[S-y-toiminto]
+[Asemat ja laitokset]->[As-la-toiminto]
+[Normaalit kadut]->[Katutoiminto]
+
+[Sattuma ja yhteismaa]->[Kortit]
+[Kortit]->[Korttitoiminto]
+
+[Korttitoiminti]^[Toiminto]
+[Aloitustoiminto]^[Toiminto]
+[Vankilatoiminto]^[Toiminto]
+[S-y-toiminto]^[Toiminto]
+[As-la-toiminto]^[Toiminto]
+[Katutoiminto]^[Toiminto]
+
+[Normaalit kadut]1-0..4[Talo]
+[Normaalit kadut]1-0..1[Hotelli]
+[Normaalit kadut]*-0..1[Pelaaja]
+
+[Raha]*-1[Pelaaja]
+
+
+///// sequencediagrams
+
+title Tehtävä 3
+
+Client->*Machine:
+Machine->*tank:FuelTank()
+Machine->tank:fill(40)
+Machine->*engine:Engine(tank)
+
+Client->Machine:drive()
+Machine->engine:start()
+engine->tank:consume(5)
+
+Machine->engine:is_running()
+engine-->Machine:True
+Machine->engine:use_energy()
+engine->tank:consume(10)
+
+
+
+/////
+
+title Tehtävä 4
+
+Main->*laitehallinto:HKLLaitehallinto()
+Main->*rautatietori:Lataajalaite()
+Main->*ratikka6:Lukijalaite()
+Main->*bussi244:Lukijalaite()
+
+Main->laitehallinto:lisaa_lataaja(rautatietori)
+Main->laitehallinto:lisaa_lukija(ratikka6)
+Main->laitehallinto:lisaa_lukija(bussi244)
+
+Main->*lippu_luukku:Kioski()
+Main->lippu_luukku:osta_matkakortti("Kalle")
+lippu_luukku->*kallen_kortti:Matkakortti("Kalle")
+lippu_luukku-->Main:kallen_kortti
+
+Main->rautatietori:lataa_arvoa(kallen_kortti, 3)
+rautatietori->kallen_kortti:kasvata_arvoa(3)
+
+Main->ratikka6:osta_lippu(kallen_kortti, 0)
+ratikka6->kallen_kortti:arvo
+kallen_kortti-->ratikka6:3
+ratikka6->kallen_kortti:vahenna_arvoa(1.5)
+ratikka6-->Main:True
+
+Main->bussi244:osta_lippu(kallen_kortti, 2)
+bussi244->kallen_kortti:arvo
+kallen_kortti-->bussi244:1.5
+bussi244-->Main:False

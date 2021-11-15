@@ -3,3 +3,10 @@
 /laskarit/viikko2/maksukortti_v2/unicafe/src/tests/__pycache__/
 /laskarit/viikko2/maksukortti_v2/unicafe/.coverage
 /laskarit/viikko2/maksukortti_v2/unicafe/htmlcov
+
+/data/prod_database.db
+/data/test_database.db
+.coverage
+.pytest_cache
+htmlcov
+__pycache__
