@@ -1,16 +1,65 @@
-# Readme
+_Päivitetty viimeksi 20.11.2021.  
+Kurssin __Ohjelmistotekniikka (syksy 2021)__ harjoitustyö._
 
-Tästä hakemistosta löytyy **ot2021** kurssiin liittyviä harjoituksia. README.md-tiedostoa päivitetään kurssin edetessä.
+# MyLedgers
 
-### Viikko 1
+Kyseessä on työpöytäsovellus, jonka avulla käyttäjä voi pitää kirjaa toiminimensä myynti- ja ostotapahtumista. Sovellukseen voi luoda useita käyttäjiä. Sovelluksen toiminnallisuudet päivittyvät harjoitustyön edetessä. Tarkemmat tiedot suunnitellusta perustoiminnallisuudesta löytyy kohdasta Dokumentaatio -> Vaatimusmäärittely.
 
-[gitlog.txt](https://github.com/Ejo0/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
-
-[komentorivi.txt](https://github.com/Ejo0/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
-
-
-### Viikko 2
+## Dokumentaatio
 
 [vaatimusmäärittely.md](https://github.com/Ejo0/ot-harjoitustyo/blob/master/documentation/vaatimusmaarittely.md)
 
 [työaikakirjanpito.md](https://github.com/Ejo0/ot-harjoitustyo/blob/master/documentation/tyoaikakirjanpito.md)
+
+## Huomioita
+
+Projektikansion rakenteeseen on saatu vinkkejä mm. kurssin [esimerkkisovelluksesta](https://github.com/ohjelmistotekniikka-hy/python-todo-app).
+
+## Asennus
+
+1. Mene projektin juurikansioon ja asenna riippuvuudet komennolla:
+
+```
+poetry install
+```
+
+2. Tee alustus:
+
+```
+poetry run invoke initialize
+```
+
+3. Käynnistä sovellus:
+
+```
+poetry run invoke start
+```
+
+## Muut komennot
+
+Sovelluksen käynnistäminen:  
+```
+poetry run invoke start
+```  
+  
+Tietokannan nollaus:  
+```
+poetry run invoke initialize
+```  
+
+### Testaus
+
+Testien ajo:  
+```
+poetry run invoke test
+```  
+
+Testikattavuusraportti:  
+```
+poetry run invoke coverage-report
+```
+  
+Testikattavuusraprotti html-tiedostona:  
+```
+poetry run invoke coverage-html
+```
