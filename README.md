@@ -11,6 +11,15 @@ Kyseessä on työpöytäsovellus, jonka avulla käyttäjä voi pitää kirjaa to
 
 [työaikakirjanpito.md](https://github.com/Ejo0/ot-harjoitustyo/blob/master/documentation/tyoaikakirjanpito.md)
 
+## Versio
+
+__VIIKKO 3__
+- Projektin perusrunko luotu (kansiorakenne, tukevat tiedostot esim .gitignore)
+- Ohjelman pystyy alustamaan ja suorittamaan
+- GUI tarjoaa ensimmäisiä toiminnallisuuksia: käyttäjän luominen, myyntitapahtumien lisäys, navigointi sovelluksessa
+- GUI visuaaliseen ilmeeseen tehty joitain alustavia kokeiluja
+- Ensimmäiset testit luotu ja testien ajo sekä kattavuusraportin laatiminen onnistuu
+
 ## Huomioita
 
 Projektikansion rakenteeseen on saatu vinkkejä mm. kurssin [esimerkkisovelluksesta](https://github.com/ohjelmistotekniikka-hy/python-todo-app).
