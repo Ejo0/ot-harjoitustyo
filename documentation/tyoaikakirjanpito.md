@@ -10,4 +10,4 @@
 | 19.11. | 4 | Perusrakenteen valmistelua |
 | 20.11. | 6 | Perusrakenteen valmistelua ja erityisesti tkinter-kirjastoon tutustumista ja GUI kokeluja |
 |  |  |  |
-| Yht | 8 |  |
+| Yht | 32 |  |
