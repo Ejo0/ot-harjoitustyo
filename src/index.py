@@ -4,7 +4,7 @@ from views.ui import UI
 def main() :
     root = Tk()
     root.title('MyLedgers')
-    root.geometry('640x480')
+    root.geometry('1280x720')
     root.configure(bg='white')
     font.nametofont("TkDefaultFont").configure(
         family="monospace",
