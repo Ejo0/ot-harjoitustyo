@@ -1,7 +1,8 @@
 from tkinter import Tk, font
 from views.ui import UI
 
-def main() :
+
+def main():
     root = Tk()
     root.title('MyLedgers')
     root.geometry('1280x720')
@@ -11,9 +12,10 @@ def main() :
         size=12
     )
 
-    ui = UI(root)
-    ui.start()
+    user_interface = UI(root)
+    user_interface.start()
     root.mainloop()
 
-if __name__ == '__main__' :
+
+if __name__ == '__main__':
     main()

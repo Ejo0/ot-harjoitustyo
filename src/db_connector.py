@@ -11,5 +11,6 @@ db_path = os.path.join(directory, '..', 'data', db_name)
 db_connector = sqlite3.connect(db_path)
 db_connector.isolation_level = None
 
+
 def get_db_connector():
     return db_connector

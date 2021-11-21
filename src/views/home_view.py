@@ -3,7 +3,7 @@ from tkinter import font
 from models.user import User
 from repositories.user_repository import UserRepository
 
-class HomeView :
+class HomeView:
 
     def __init__(self, parent, show_user_view) -> None:
         self._parent = parent
@@ -11,32 +11,32 @@ class HomeView :
         self._header = None
         self._body = None
     
-    def start(self) :
+    def start(self):
         self._header = Header(self._parent, self._show_info, self._show_users)
         self._header.pack()
         self._show_users()
     
-    def _show_info(self) :
+    def _show_info(self):
         self._hide_body()
         self._body = InfoMenu(self._parent)
         self._body.pack()
     
-    def _show_users(self) :
+    def _show_users(self):
         self._hide_body()
         self._body = UsersMenu(self._parent, self._show_user_view, self._show_users)
         self._body.pack()
 
-    def _hide_body(self) :
+    def _hide_body(self):
         if self._body : self._body.destroy()
         self._body = None
 
-    def destroy(self) :
+    def destroy(self):
         if self._header : self._header.destroy()
         if self._body : self._body.destroy()
         self._header = None
         self._body = None
 
-class Header :
+class Header:
 
     def __init__(self, parent, show_info, show_user) -> None:
         self._parent = parent
@@ -46,13 +46,13 @@ class Header :
 
         self._initialize()
     
-    def pack(self) :
+    def pack(self):
         self._frame.pack(fill='both')
     
-    def destroy(self) :
+    def destroy(self):
         self._frame.destroy()
     
-    def _initialize(self) :
+    def _initialize(self):
         self._frame = Frame(
             master=self._parent,
             bg='white',
@@ -82,7 +82,7 @@ class Header :
         users_menu_button.grid(padx=80, pady=5)
         info_menu_button.grid(row=0, column=1, padx=80, pady=5)
 
-class InfoMenu :
+class InfoMenu:
 
     def __init__(self, parent) -> None:
         self._parent = parent
@@ -90,19 +90,19 @@ class InfoMenu :
 
         self._initialize_()
     
-    def pack(self) :
+    def pack(self):
         self._frame.pack(anchor='nw')
     
-    def destroy(self) :
+    def destroy(self):
         self._frame.destroy()
     
-    def _initialize_(self) :
+    def _initialize_(self):
         self._frame = Frame(master=self._parent)
         info_text = Text(master=self._frame)
         info_text.insert(END, "Placeholder infotekstille\nuseampi rivi")
         info_text.pack(padx=5, pady=5)
 
-class UsersMenu :
+class UsersMenu:
 
     def __init__(self, parent, show_user_view, show_users) -> None:
         self._parent = parent
@@ -113,13 +113,13 @@ class UsersMenu :
     
         self._initialize()
     
-    def pack(self) :
+    def pack(self):
         self._frame.pack(fill='both', expand=True)
     
-    def destroy(self) :
+    def destroy(self):
         self._frame.destroy()
     
-    def _initialize(self) :
+    def _initialize(self):
         self._frame = Frame(master=self._parent, bg='white')
         users_label = Label(
             master=self._frame,
@@ -155,7 +155,7 @@ class UsersMenu :
         pick_users_label.grid(row=3, column=0, padx=5, pady=5, sticky='w')
 
         self._frame.grid_rowconfigure(2, minsize=30)
-        for i in range(6) :
+        for i in range(6):
             self._frame.grid_columnconfigure(i, minsize=200)
 
         col_index = 0
@@ -171,7 +171,8 @@ class UsersMenu :
             user_button.grid(row=4 + col_index//6, column=col_index%6, columnspan=2, padx=5, pady=15, sticky='w')
             col_index += 2
 
-    def _create_user(self, name) :
+    def _create_user(self, name):
         if len(name) == 0 : return 
         self._user_repository.create(name)
         self._show_users()
+        

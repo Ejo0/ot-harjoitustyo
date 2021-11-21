@@ -2,7 +2,7 @@ from tkinter import *
 from repositories.sales_repository import SalesRepository
 from models.user import User
 
-class UserView :
+class UserView:
 
     def __init__(self, parent, user : User, show_home_view) -> None:
         self._parent = parent
@@ -12,32 +12,32 @@ class UserView :
         self._header = None
         self._body = None
 
-    def start(self) :
+    def start(self):
         self._header = Header(self._parent, self._user, self._show_new_event, self._show_statistics, self._show_home_view)
         self._header.pack()
         self._show_statistics()
     
-    def destroy(self) :
+    def destroy(self):
         self._hide_body()
         if self._header : self._header.destroy()
         self._header = None
 
-    def _show_new_event(self) :
+    def _show_new_event(self):
         self._hide_body()
         self._body = NewEvent(self._parent, self._user, self._sales_repository)
         self._body.pack()
     
-    def _show_statistics(self) :
+    def _show_statistics(self):
         self._hide_body()
         self._body = Statistics(self._parent, self._user, self._sales_repository)
         self._body.pack()
     
-    def _hide_body(self) :
+    def _hide_body(self):
         if self._body : self._body.destroy()
         self._body = None
 
     
-class Header :
+class Header:
 
     def __init__(self, parent, user : User, show_new_event, show_statistics, show_home_view) -> None:
         self._parent = parent
@@ -49,14 +49,14 @@ class Header :
 
         self._initialize()
 
-    def pack(self) :
+    def pack(self):
         self._frame.pack(fill='both')
     
-    def destroy(self) :
+    def destroy(self):
         if self._frame : self._frame.destroy()
         self._frame = None
 
-    def _initialize(self) :
+    def _initialize(self):
         self._frame = Frame(master=self._parent, bg='white')
         header_label = Label(
             master=self._frame,
@@ -104,7 +104,7 @@ class Header :
         show_home_view_button.grid(row=1, column=2, padx=80, pady=5)
 
 
-class NewEvent :
+class NewEvent:
 
     def __init__(self, parent, user : User, sales_repository : SalesRepository) -> None:
         self._parent = parent
@@ -115,7 +115,7 @@ class NewEvent :
 
         self._initialize()
     
-    def _show_error(self) :
+    def _show_error(self):
         if self._notification_label : self._notification_label.destroy()
         self._notification_label = Label(
             master=self._frame,
@@ -125,7 +125,7 @@ class NewEvent :
         )
         self._notification_label.grid(column=1, padx=5, pady=5)
     
-    def _show_success(self) :
+    def _show_success(self):
         if self._notification_label : self._notification_label.destroy()
         self._notification_label = Label(
             master=self._frame,
@@ -135,13 +135,13 @@ class NewEvent :
         )
         self._notification_label.grid(column=1, padx=5, pady=5)
 
-    def pack(self) :
+    def pack(self):
         self._frame.pack(fill='both')
 
-    def destroy(self) :
+    def destroy(self):
         self._frame.destroy()
 
-    def _initialize(self) :
+    def _initialize(self):
         self._frame = Frame(master=self._parent, bg='white')
         val = IntVar()
         
@@ -192,7 +192,7 @@ class NewEvent :
             bg='white'
         )
 
-        def add_event() :
+        def add_event():
             user_id = self._user.id
             try :
                 amount = float(amount_entry.get().replace(",","."))
@@ -220,7 +220,7 @@ class NewEvent :
         create_event_button.grid(row=4, column=1, padx=5, pady=5, sticky='w')
 
     
-class Statistics :
+class Statistics:
 
     def __init__(self, parent, user : User, sales_repository : SalesRepository) -> None:
         self._parent =parent
@@ -230,10 +230,10 @@ class Statistics :
     
         self._initialize()
         
-    def pack(self) :
+    def pack(self):
         self._frame.pack(fill='both')
         
-    def destroy(self) :
+    def destroy(self):
         self._frame.destroy()
         
     def _initialize(self):
@@ -270,4 +270,3 @@ class Statistics :
             )
             sale_row_label.grid(padx=5, sticky='w')
             row_index += 1
-
