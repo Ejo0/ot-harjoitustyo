@@ -1,12 +1,13 @@
-class SaleRow:
+class ExpenseRow:
 
-    def __init__(self, event_id: int, user_id: int, event_date, amount: int, vat: int, desc: int):
-        self._id = event_id
+    def __init__(self, exp_id: int, user_id: int, exp_date, amount: int, vat: int, desc: int, exp_type: str):
+        self._id = exp_id
         self._user_id = user_id
-        self._date = event_date # type: datetime.date
+        self._date = exp_date # type: datetime.date
         self._amount = amount
         self._vat = vat
         self._description = desc
+        self._expense_type = exp_type
 
     @property
     def id(self):
@@ -31,3 +32,7 @@ class SaleRow:
     @property
     def description(self):
         return self._description
+
+    @property
+    def expense_type(self):
+        return self._expense_type

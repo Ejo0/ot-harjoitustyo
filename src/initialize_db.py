@@ -16,14 +16,14 @@ def initialize_database():
     connector.execute(
         """
         CREATE TABLE Sales
-        (id INTEGER PRIMARY KEY, description TEXT, amount INTEGER,
-        user_id INTEGER, vat INTEGER)
+        (id INTEGER PRIMARY KEY, user_id INTEGER, event_date DATE,
+        amount INTEGER, vat INTEGER, description TEXT)
         """)
     connector.execute(
         """
         CREATE TABLE Expenses
-        (id INTEGER PRIMARY KEY, description TEXT,
-        amount INTEGER, user_id, INTEGER, vat INTEGER)
+        (id INTEGER PRIMARY KEY, user_id INTEGER, event_date DATE,
+        amount INTEGER, vat INTEGER, description TEXT, type TEXT)
         """)
 
 

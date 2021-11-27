@@ -1,5 +1,6 @@
-import db_connector
+from datetime import date
 from models.sale_row import SaleRow
+import db_connector
 
 
 class SalesRepository:
@@ -7,17 +8,23 @@ class SalesRepository:
     def __init__(self) -> None:
         self.__connector = db_connector.get_db_connector()
 
-    def create(self, description: str, amount: int, user_id: int, vat: int):
+    def create(self, user_id: int, event_date: date, amount: int, vat: int, description: str):
+        date_as_str = f"{event_date.year}-{event_date.month:02d}-{event_date.day:02d}"
         self.__connector.execute(
-            "INSERT INTO Sales (description, amount, user_id, vat)" +
-            "VALUES (?,?,?,?)",
-            [description, amount, user_id, vat]
+            "INSERT INTO Sales (user_id, event_date, amount, vat, description)" +
+            "VALUES (?,?,?,?,?)",
+            [user_id, date_as_str, amount, vat, description]
         )
 
     def get_sale_row(self, row_id: int):
         sale_row = self.__connector.execute(
             "SELECT * FROM Sales WHERE id = ?", [row_id]).fetchone()
-        return SaleRow(sale_row[0], sale_row[1], sale_row[2], sale_row[3], sale_row[4])
+        year, month, day = sale_row[2].split("-")
+        event_date_as_date = date(int(year), int(month), int(day))
+        return SaleRow(
+            sale_row[0], sale_row[1], event_date_as_date,
+            sale_row[3], sale_row[4], sale_row[5]
+        )
 
     def get_all_sale_rows(self, user_id: int = None):
         if user_id:
@@ -27,7 +34,12 @@ class SalesRepository:
             sale_rows = self.__connector.execute("SELECT * FROM Sales")
         output = []
         for sale_row in sale_rows:
-            output.append(SaleRow(sale_row[0], sale_row[1], sale_row[2], sale_row[3], sale_row[4]))
+            year, month, day = sale_row[2].split("-")
+            event_date_as_date = date(int(year), int(month), int(day))
+            output.append(SaleRow(
+                sale_row[0], sale_row[1], event_date_as_date,
+                sale_row[3], sale_row[4], sale_row[5]
+            ))
         return output
 
     def delete_all(self):
