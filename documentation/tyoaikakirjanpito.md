@@ -9,5 +9,9 @@
 | 15.11. | 4 | Ensimmäinen suoritettava ja testattavissa oleva versio githubiin |
 | 19.11. | 4 | Perusrakenteen valmistelua |
 | 20.11. | 6 | Perusrakenteen valmistelua ja erityisesti tkinter-kirjastoon tutustumista ja GUI kokeluja |
+| 21.11. | 3 | Tehdyn koodin kertailua ja ongelmien tunnistamista, pylint käyttöönotto ja hyödyntäminen |
+| 26.11. | 6 | MVP:n valmistelua, testien ja pylint-tarkistusten tekoa, refaktorointia (UI ei jatkossa suoraan käytä repository-luokkia) |
+|  |  |  |
+|  |  |  |
 |  |  |  |
 | Yht | 32 |  |
