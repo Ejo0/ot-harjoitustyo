@@ -1,4 +1,4 @@
-_Päivitetty viimeksi 20.11.2021.  
+_Päivitetty viimeksi 28.11.2021.  
 Kurssin __Ohjelmistotekniikka (syksy 2021)__ harjoitustyö._
 
 # MyLedgers
@@ -7,18 +7,25 @@ Kyseessä on työpöytäsovellus, jonka avulla käyttäjä voi pitää kirjaa to
 
 ## Dokumentaatio
 
-[vaatimusmäärittely.md](https://github.com/Ejo0/ot-harjoitustyo/blob/master/documentation/vaatimusmaarittely.md)
+[vaatimusmäärittely](https://github.com/Ejo0/ot-harjoitustyo/blob/master/documentation/vaatimusmaarittely.md)
 
-[työaikakirjanpito.md](https://github.com/Ejo0/ot-harjoitustyo/blob/master/documentation/tyoaikakirjanpito.md)
+[työaikakirjanpito](https://github.com/Ejo0/ot-harjoitustyo/blob/master/documentation/tyoaikakirjanpito.md)
+
+[arkkitehtuuri](https://github.com/Ejo0/ot-harjoitustyo/blob/master/documentation/arkkitehtuuri.md)
+
 
 ## Versio
 
-__VIIKKO 3__
-- Projektin perusrunko luotu (kansiorakenne, tukevat tiedostot esim .gitignore)
-- Ohjelman pystyy alustamaan ja suorittamaan
-- GUI tarjoaa ensimmäisiä toiminnallisuuksia: käyttäjän luominen, myyntitapahtumien lisäys, navigointi sovelluksessa
-- GUI visuaaliseen ilmeeseen tehty joitain alustavia kokeiluja
-- Ensimmäiset testit luotu ja testien ajo sekä kattavuusraportin laatiminen onnistuu
+__VIIKKO 4__
+- Ohjelman MVP on lähes toteutettu, eli suurin osa perustoiminnallisuuksista löytyy:
+  - Käyttäjien luominen, GUI:ssä navigointi
+  - Myynti- ja ostotapahtumien luonti ja listaus
+  - Kokonaismyynnit, -ostot ja tulos näytetään
+  - Kirjanpito-osiota voi rullata ylös tai alas (varautuminen isolle määrälle tapahtumia)
+- Virheellisiin syötteisiin varautuminen
+- Pylint käyttöönotto
+- Koodin refaktorointia, mm. UI käyttää nyt services-luokkia repositories-luokkien sijaan
+- Testikattavuutta laajennettu
 
 ## Huomioita
 
@@ -54,6 +61,11 @@ poetry run invoke start
 Tietokannan nollaus:  
 ```
 poetry run invoke initialize
+```  
+
+Koodin laatutarkastus Pylint-komennolla:  
+```
+poetry run invoke lint
 ```  
 
 ### Testaus
