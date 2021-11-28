@@ -24,6 +24,6 @@ Sovelluksen peruslogiikka on yksinkertainen, mutta aihe sen luontoinen, että ed
 
 ### Luonnoskuvia
 
-![view1](view1.png)
-![view2](view2.png)
-![view3](view3.png)
+![view1](images/view1.png)
+![view2](images/view2.png)
+![view3](images/view3.png)
