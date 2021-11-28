@@ -10,6 +10,8 @@ Käyttäjärooliksi tulee aluksi peruskäyttäjä, joita voi olla useita. Lisäk
 Kyseessä on työpöytäsovellus, joka sisältää yksinkertaisen graafisen käyttöliittymän. Liittymässä on aloitusnäkymä, josta voidaan navigoida käyttäjän näkymään tai luoda uusi käyttäjä.
 Käyttäjänäkymässä käyttäjä voi lisätä uusia myynti- tai ostotapahtumia. Käyttäjänäkymästä näkee kertyneet tapahtumat ja niistä joitain tunnuslukuja/koosteita. Peruskoosteet ovat lista tapahtumista ja myyntien ja ostojen summat. Käyttäjät, myynnit ja ostot tallennetaan SQL-tietokantaan.
 
+Perusominaisuudet ✔️
+
 ### Toteutus
 Sovellus toimii erityisesti harjoituksena yksinkertaisen sovelluksen toteutukselle. Ensisijainen tavoite on toteuttaa yksinkertainen graafinen käyttöliittymä, joka tarjoaa perustoiminnallisuudet, tallentaa data tietokantaan ja sisältää toimivaa testausta.
 
