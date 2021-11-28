@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import font
 from models.user import User
 from services.expense_row_service import ExpenseRowService
 from services.sale_row_service import SaleRowService
@@ -250,7 +251,7 @@ class NewEvent:
         create_event_button.grid(row=5, column=1, padx=5, pady=5, sticky='w')
         val.set(1)
 
-    
+
 class Statistics:
 
     def __init__(self, parent, user : User, sale_row_service : SaleRowService, expense_row_service: ExpenseRowService) -> None:
@@ -261,17 +262,19 @@ class Statistics:
         self._frame = None
     
         self._initialize()
-        
+    
     def pack(self):
-        self._frame.pack(fill='both')
+        self._frame.pack(fill='both', expand=1)
         
     def destroy(self):
         self._frame.destroy()
         
     def _initialize(self):
-        self._frame = Frame(master=self._frame, bg='white')
-        self._frame.grid_columnconfigure(0, minsize=640)
-
+        self._frame = Frame(master=self._parent, bg='white')
+        bookkeeping_text = Text(
+            master=self._frame,
+            bg='white',
+        )
         total_sales = self._sale_row_service.total_amount(self._user.id) / 100.0
         total_expenses = self._expense_row_service.total_amount(self._user.id) / 100.0
         result = total_sales - total_expenses
@@ -280,54 +283,55 @@ class Statistics:
             text =
                 f"YHTEENVETO\nMYYNNIT: {total_sales:.2f} euroa\n" +
                 f"OSTOT: {total_expenses:.2f} euroa\n" +
-                f"TULOS: {result:.2f} euroa",
+                f"TULOS: {result:.2f} euroa\n",
             bg='white',
-            justify='l'
+            justify='l',
+            anchor='w'
         )
-        sales_label = Label(
-            master=self._frame,
-            text=f"{'MYYNNIT':10}{'Nro.':10}{'Pvm.':15}{'Summa (€)':>15}{'':10}{'Kuvaus'}",
-            bg='white',
-            font=('monospace', 10, 'bold')
+        overview_label.pack(fill='both')
+
+        bookkeeping_scrollbar = Scrollbar(
+            bookkeeping_text,
+            orient=VERTICAL,
+            bg='black',
+            troughcolor='white',
+            highlightthickness=0,
+            borderwidth=0,
         )
-        expenses_label = Label(
-            master=self._frame,
-            text=f"{'OSTOT':10}{'Nro.':10}{'Pvm.':15}{'Summa (€)':>15}{'':10}{'Kuvaus'}",
-            bg='white',
-            font=('monospace', 10, 'bold')
-        )
-        overview_label.grid(padx=5, pady=5, sticky='w')
-        sales_label.grid(padx=5, pady=5, sticky='w')
 
         sales = self._sale_row_service.rows_sorted_by_date(self._user.id)
+        expenses = self._expense_row_service.rows_sorted_by_date(self._user.id)
+        sales_header = f"{'MYYNNIT':10}{'Nro.':10}{'Pvm.':15}{'Summa (€)':>15}{'':10}{'Kuvaus'}\n"
+        expenses_header = f"{'OSTOT':10}{'Nro.':10}{'Pvm.':15}{'Summa (€)':>15}{'':10}{'Kuvaus'}\n"
+
+        bookkeeping_text.insert(END, sales_header)
+        bookkeeping_text.tag_add('sales_header', '1.0', '1.end')
+        bookkeeping_text.tag_config('sales_header', font='monospace 10 bold')
         row_index = 1
         for sale in sales:
             row_num_as_str = f"{row_index}."
             date_as_str = f"{sale.date.day:02d}.{sale.date.month:02d}.{sale.date.year}"
             amount_in_euros = sale.amount / 100.0
             desc = sale.description
-            sale_row_label = Label(
-                master=self._frame,
-                text=f"{'':10}{row_num_as_str:10}{date_as_str:<15}{amount_in_euros:>15.2f}{'':10}{desc}",
-                bg='white',
-                font=('monospace', 10)
-            )
-            sale_row_label.grid(padx=5, sticky='w')
+            sale_row_text = f"{'':10}{row_num_as_str:10}{date_as_str:<15}{amount_in_euros:>15.2f}{'':10}{desc}\n"
+            bookkeeping_text.insert(END, sale_row_text)
             row_index += 1
         
-        expenses_label.grid(padx=5, pady=5, sticky='w')
-        expenses = self._expense_row_service.rows_sorted_by_date(self._user.id)
+        bookkeeping_text.insert(END, "\n" + expenses_header)
+        bookkeeping_text.tag_add('expenses_header', f'{row_index + 2}.0', f'{row_index + 2}.end')
+        bookkeeping_text.tag_config('expenses_header', font='monospace 10 bold')
         row_index = 1
         for expense in expenses:
             row_num_as_str = f"{row_index}."
             date_as_str = f"{expense.date.day:02d}.{expense.date.month:02d}.{expense.date.year}"
             amount_in_euros = expense.amount / 100.0
             desc = expense.description
-            expense_row_label = Label(
-                master=self._frame,
-                text=f"{'':10}{row_num_as_str:10}{date_as_str:<15}{amount_in_euros:>15.2f}{'':10}{desc}",
-                bg='white',
-                font=('monospace', 10)
-            )
-            expense_row_label.grid(padx=5, sticky='w')
+            expense_row_text = f"{'':10}{row_num_as_str:10}{date_as_str:<15}{amount_in_euros:>15.2f}{'':10}{desc}\n"
+            bookkeeping_text.insert(END, expense_row_text)
             row_index += 1
+
+        bookkeeping_text.config(yscrollcommand=bookkeeping_scrollbar.set)
+        bookkeeping_scrollbar.config(command=bookkeeping_text.yview)
+
+        bookkeeping_text.pack(fill='both', expand=1)
+        bookkeeping_scrollbar.pack(side=RIGHT, fill=Y)
