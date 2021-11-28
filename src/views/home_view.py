@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import font
 from models.user import User
-from repositories.user_repository import UserRepository
+from services.user_service import UserService
 
 class HomeView:
 
@@ -109,7 +109,7 @@ class UsersMenu:
         self._show_user_view = show_user_view
         self._show_users = show_users
         self._frame = None
-        self._user_repository = UserRepository()
+        self._user_service = UserService()
     
         self._initialize()
     
@@ -159,7 +159,7 @@ class UsersMenu:
             self._frame.grid_columnconfigure(i, minsize=200)
 
         col_index = 0
-        for user in self._user_repository.get_all() :
+        for user in self._user_service.get_all():
             user_button = Button(
                 master=self._frame,
                 text=f"{user.name}",
@@ -173,6 +173,6 @@ class UsersMenu:
 
     def _create_user(self, name):
         if len(name) == 0 : return 
-        self._user_repository.create(name)
+        self._user_service.create(name)
         self._show_users()
         
