@@ -17,8 +17,8 @@ class SaleRowService:
         self._sales_repository.create(
             user_id, event_date, amount, vat, description)
 
-    def total_amount(self, user_id: int):
-        return self._sales_repository.total_amount(user_id)
-
     def delete_all(self):
         self._sales_repository.delete_all()
+
+    def get_sale_row(self, row_id: int):
+        return self._sales_repository.get_sale_row(row_id)

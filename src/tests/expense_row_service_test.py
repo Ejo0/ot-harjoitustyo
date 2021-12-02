@@ -14,17 +14,13 @@ class TestExpenseRowService(unittest.TestCase):
         self._expense_row_service.create_expense_row(3, date(2021, 2, 5), 555, 0, "Busticket") 
         self._expense_row_service.create_expense_row(2, date(2021, 1, 1), 3000, 0, "Book")
     
-    def test_rows_sorted_by_amount_gives_correct_order(self):
+    def test_rows_sorted_by_date_gives_correct_order(self):
         expenses = self._expense_row_service.rows_sorted_by_date(3)
         self.assertEqual(expenses[0].date, date(2021, 2, 2))
         self.assertEqual(expenses[1].amount, 555)
         self.assertEqual(expenses[2].description, "Phone")
     
-    def test_rows_sorted_by_amount_gives_correct_expenses(self):
+    def test_rows_sorted_by_date_gives_correct_expenses(self):
         expenses = self._expense_row_service.rows_sorted_by_date(3)
         self.assertEqual(len(expenses), 3)
         self.assertEqual(expenses[0].amount, 9000)
-    
-    def test_total_amount_gives_correct_amount(self):
-        total = self._expense_row_service.total_amount(3)
-        self.assertEqual(total, 19605)

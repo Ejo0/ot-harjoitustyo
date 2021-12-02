@@ -17,8 +17,8 @@ class ExpenseRowService:
         self._expenses_repository.create(
             user_id, event_date, amount, vat, description)
 
-    def total_amount(self, user_id: int):
-        return self._expenses_repository.total_amount(user_id)
-
     def delete_all(self):
         self._expenses_repository.delete_all()
+
+    def get_expense_row(self, row_id: int):
+        return self._expenses_repository.get_expense_row(row_id)

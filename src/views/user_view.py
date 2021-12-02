@@ -1,6 +1,6 @@
 from tkinter import *
-from tkinter import font
 from models.user import User
+from services.accounting_service import AccountingService
 from services.expense_row_service import ExpenseRowService
 from services.sale_row_service import SaleRowService
 from datetime import date
@@ -11,8 +11,6 @@ class UserView:
         self._parent = parent
         self._user = user
         self._show_home_view = show_home_view
-        self._sales_row_service = SaleRowService()
-        self._expense_row_service = ExpenseRowService()
         self._header = None
         self._body = None
 
@@ -28,12 +26,12 @@ class UserView:
 
     def _show_new_event(self):
         self._hide_body()
-        self._body = NewEvent(self._parent, self._user, self._sales_row_service, self._expense_row_service)
+        self._body = NewEvent(self._parent, self._user)
         self._body.pack()
     
     def _show_statistics(self):
         self._hide_body()
-        self._body = Statistics(self._parent, self._user, self._sales_row_service, self._expense_row_service)
+        self._body = Statistics(self._parent, self._user)
         self._body.pack()
     
     def _hide_body(self):
@@ -110,11 +108,11 @@ class Header:
 
 class NewEvent:
 
-    def __init__(self, parent, user : User, sale_row_service : SaleRowService, expense_row_service: ExpenseRowService) -> None:
+    def __init__(self, parent, user : User) -> None:
         self._parent = parent
         self._user = user
-        self._sale_row_service = sale_row_service
-        self._expense_row_service = expense_row_service
+        self._sale_row_service = SaleRowService()
+        self._expense_row_service = ExpenseRowService()
         self._frame = None
         self._notification_label = None
 
@@ -148,7 +146,8 @@ class NewEvent:
 
     def _initialize(self):
         self._frame = Frame(master=self._parent, bg='white')
-        val = IntVar()
+        event_type_variable = IntVar()
+        vat_variable = StringVar()
 
         event_type_label = Label(
             master=self._frame,
@@ -158,7 +157,7 @@ class NewEvent:
         sale_event_radiobutton = Radiobutton(
             master=self._frame,
             text="Myynti",
-            variable=val,
+            variable=event_type_variable,
             value=1,
             bg='white',
             highlightthickness=0
@@ -166,7 +165,7 @@ class NewEvent:
         expense_event_radiobutton =Radiobutton(
             master=self._frame,
             text="Osto",
-            variable=val,
+            variable=event_type_variable,
             value=2,
             bg='white',
             relief='flat',
@@ -187,6 +186,27 @@ class NewEvent:
         )
         amount_entry = Entry(
             master=self._frame
+        )
+        vat_label = Label(
+            master=self._frame,
+            text='Valitse alv-kanta:',
+            bg='white'
+        )
+        vat_options = ['24%', '14%', '10%', '0%']
+        vat_optionmenu = OptionMenu(
+            self._frame,
+            vat_variable,
+            *vat_options,
+        )
+        vat_optionmenu.config(
+            bg='white',
+            activebackground='white',
+            relief='flat',
+            borderwidth=0,
+            highlightthickness=0
+        )
+        vat_optionmenu['menu'].config(
+            bg='white'
         )
         description_label = Label(
             master=self._frame,
@@ -226,12 +246,17 @@ class NewEvent:
                 return
 
             amount_in_sents = int(amount * 100)
-            
-            if val.get() == 1 :
-                self._sale_row_service.create_sale_row(user_id, event_date_as_date, amount_in_sents, 0, description)
 
-            if val.get() == 2 :
-                self._expense_row_service.create_expense_row(user_id, event_date_as_date, amount_in_sents, 0, description)
+            vat = 0
+            if vat_variable.get() == '24%' : vat = 24
+            if vat_variable.get() == '14%' : vat = 14
+            if vat_variable.get() == '10%' : vat = 10
+            
+            if event_type_variable.get() == 1 :
+                self._sale_row_service.create_sale_row(user_id, event_date_as_date, amount_in_sents, vat, description)
+
+            if event_type_variable.get() == 2 :
+                self._expense_row_service.create_expense_row(user_id, event_date_as_date, amount_in_sents, vat, description)
             
             amount_entry.delete(0, END)
             description_entry.delete(0, END)
@@ -239,26 +264,30 @@ class NewEvent:
             self._show_success()
             
 
-        event_type_label.grid(row=0, column=0, padx=5, pady=5)
+        event_type_label.grid(row=0, column=0, padx=5, pady=5, sticky='w')
         sale_event_radiobutton.grid(row=0, column=1, padx=5, sticky='w')
         expense_event_radiobutton.grid(row=1, column=1, padx=5, sticky='w')
         date_label.grid(row=2, column=0, padx=5, pady=5, sticky='w')
         date_entry.grid(row=2, column=1, padx=5, pady=5, sticky='w')
         amount_label.grid(row=3, column=0, padx=5, pady=5, sticky='w')
         amount_entry.grid(row=3, column=1, padx=5, pady=5, sticky='w')
-        description_label.grid(row=4, column=0, padx=5, pady=5, sticky='w')
-        description_entry.grid(row=4, column=1, padx=5, pady=5, sticky='w')
-        create_event_button.grid(row=5, column=1, padx=5, pady=5, sticky='w')
-        val.set(1)
+        vat_label.grid(row=4, column=0, padx=5, pady=5, sticky='w')
+        vat_optionmenu.grid(row=4, column=1, padx=5, pady=5, sticky='w')
+        description_label.grid(row=5, column=0, padx=5, pady=5, sticky='w')
+        description_entry.grid(row=5, column=1, padx=5, pady=5, sticky='w')
+        create_event_button.grid(row=6, column=1, padx=5, pady=5, sticky='w')
+        event_type_variable.set(1)
+        vat_variable.set(vat_options[0])
 
 
 class Statistics:
 
-    def __init__(self, parent, user : User, sale_row_service : SaleRowService, expense_row_service: ExpenseRowService) -> None:
+    def __init__(self, parent, user : User) -> None:
         self._parent =parent
         self._user = user
-        self._sale_row_service = sale_row_service
-        self._expense_row_service = expense_row_service
+        self._accounting_service = AccountingService()
+        self._sale_row_service = SaleRowService()
+        self._expense_row_service = ExpenseRowService()
         self._frame = None
     
         self._initialize()
@@ -275,15 +304,27 @@ class Statistics:
             master=self._frame,
             bg='white',
         )
-        total_sales = self._sale_row_service.total_amount(self._user.id) / 100.0
-        total_expenses = self._expense_row_service.total_amount(self._user.id) / 100.0
-        result = total_sales - total_expenses
+        total_sales = self._accounting_service.total_sales_including_vat(self._user.id) / 100.0
+        total_expenses = self._accounting_service.total_expenses_including_vat(self._user.id) / 100.0
+        net_sales = self._accounting_service.net_sales(self._user.id) / 100.0
+        net_expenses = self._accounting_service.net_expenses(self._user.id) / 100.0
+        net_result = self._accounting_service.net_result(self._user.id) / 100.0
+        vat_on_sales = self._accounting_service.vat_on_sales(self._user.id) / 100.0
+        deductible_vat = self._accounting_service.deductible_vat(self._user.id) / 100.0
+        vat_payable = self._accounting_service.vat_payable(self._user.id) / 100.0
+
+
         overview_label =Label(
             master=self._frame,
             text =
-                f"YHTEENVETO\nMYYNNIT: {total_sales:.2f} euroa\n" +
-                f"OSTOT: {total_expenses:.2f} euroa\n" +
-                f"TULOS: {result:.2f} euroa\n",
+                f"KASSAVIRTA\nMyynnit (sis. alv): {total_sales:.2f} euroa\n" +
+                f"Ostot (sis. alv): {total_expenses:.2f} euroa\n\n" +
+                f"TULOS- JA ALV-LASKELMA\nLiikevaihto: {net_sales:.2f} euroa\n" +
+                f"Ostot: {net_expenses:.2f} euroa\n" +
+                f"Tulos: {net_result:.2f} euroa\n\n" +
+                f"Myynnin alv: {vat_on_sales:.2f} euroa\n" +
+                f"Vähennettävä alv: {deductible_vat:.2f} euroa\n" +
+                f"Verolle suoritettava alv: {vat_payable:.2f} euroa\n",
             bg='white',
             justify='l',
             anchor='w'
@@ -301,8 +342,8 @@ class Statistics:
 
         sales = self._sale_row_service.rows_sorted_by_date(self._user.id)
         expenses = self._expense_row_service.rows_sorted_by_date(self._user.id)
-        sales_header = f"{'MYYNNIT':10}{'Nro.':10}{'Pvm.':15}{'Summa (€)':>15}{'':10}{'Kuvaus'}\n"
-        expenses_header = f"{'OSTOT':10}{'Nro.':10}{'Pvm.':15}{'Summa (€)':>15}{'':10}{'Kuvaus'}\n"
+        sales_header = f"{'MYYNNIT':10}{'Nro.':10}{'Pvm.':15}{'Summa (alv0)':>15}{'Alv':>15}{'Yht':>21}{'':10}{'Kuvaus'}\n"
+        expenses_header = f"{'OSTOT':10}{'Nro.':10}{'Pvm.':15}{'Summa (alv0)':>15}{'Alv':>15}{'Yht':>21}{'':10}{'Kuvaus'}\n"
 
         bookkeeping_text.insert(END, sales_header)
         bookkeeping_text.tag_add('sales_header', '1.0', '1.end')
@@ -311,9 +352,13 @@ class Statistics:
         for sale in sales:
             row_num_as_str = f"{row_index}."
             date_as_str = f"{sale.date.day:02d}.{sale.date.month:02d}.{sale.date.year}"
+            vatless_amount = self._accounting_service.vatless_amount(sale) / 100.0
+            vat_amount = self._accounting_service.vat_amount(sale) / 100.0
             amount_in_euros = sale.amount / 100.0
+            if sale.vat == 0 : vat_percentage = f"({sale.vat}%) "
+            else: vat_percentage = f"({sale.vat}%)"
             desc = sale.description
-            sale_row_text = f"{'':10}{row_num_as_str:10}{date_as_str:<15}{amount_in_euros:>15.2f}{'':10}{desc}\n"
+            sale_row_text = f"{'':10}{row_num_as_str:10}{date_as_str:<15}{vatless_amount:>15.2f}{vat_amount:>15.2f} {vat_percentage}{amount_in_euros:>15.2f}{'':10}{desc}\n"
             bookkeeping_text.insert(END, sale_row_text)
             row_index += 1
         
@@ -324,9 +369,13 @@ class Statistics:
         for expense in expenses:
             row_num_as_str = f"{row_index}."
             date_as_str = f"{expense.date.day:02d}.{expense.date.month:02d}.{expense.date.year}"
+            vatless_amount = self._accounting_service.vatless_amount(expense) / 100.0
+            vat_amount = self._accounting_service.vat_amount(expense) / 100.0
             amount_in_euros = expense.amount / 100.0
+            if expense.vat == 0 : vat_percentage = f"({expense.vat}%) "
+            else: vat_percentage = f"({expense.vat}%)"
             desc = expense.description
-            expense_row_text = f"{'':10}{row_num_as_str:10}{date_as_str:<15}{amount_in_euros:>15.2f}{'':10}{desc}\n"
+            expense_row_text = f"{'':10}{row_num_as_str:10}{date_as_str:<15}{vatless_amount:>15.2f}{vat_amount:>15.2f} {vat_percentage}{amount_in_euros:>15.2f}{'':10}{desc}\n"
             bookkeeping_text.insert(END, expense_row_text)
             row_index += 1
 
