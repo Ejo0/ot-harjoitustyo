@@ -181,7 +181,7 @@ class NewEvent:
         )
         amount_label = Label(
             master=self._frame,
-            text="Summa:",
+            text="Summa (sis. alv):",
             bg='white'
         )
         amount_entry = Entry(
@@ -320,7 +320,7 @@ class Statistics:
                 f"KASSAVIRTA\nMyynnit (sis. alv): {total_sales:.2f} euroa\n" +
                 f"Ostot (sis. alv): {total_expenses:.2f} euroa\n\n" +
                 f"TULOS- JA ALV-LASKELMA\nLiikevaihto: {net_sales:.2f} euroa\n" +
-                f"Ostot: {net_expenses:.2f} euroa\n" +
+                f"Kulut: {net_expenses:.2f} euroa\n" +
                 f"Tulos: {net_result:.2f} euroa\n\n" +
                 f"Myynnin alv: {vat_on_sales:.2f} euroa\n" +
                 f"Vähennettävä alv: {deductible_vat:.2f} euroa\n" +

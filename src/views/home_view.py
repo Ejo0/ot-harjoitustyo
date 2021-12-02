@@ -1,6 +1,4 @@
 from tkinter import *
-from tkinter import font
-from models.user import User
 from services.user_service import UserService
 
 class HomeView:
