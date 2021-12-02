@@ -11,7 +11,8 @@
 | 20.11. | 6 | Perusrakenteen valmistelua ja erityisesti tkinter-kirjastoon tutustumista ja GUI kokeluja |
 | 21.11. | 3 | Tehdyn koodin kertailua ja ongelmien tunnistamista, pylint käyttöönotto ja hyödyntäminen |
 | 26.11. | 6 | MVP:n valmistelua, testien ja pylint-tarkistusten tekoa, refaktorointia (UI ei jatkossa suoraan käytä repository-luokkia) |
-|  |  |  |
-|  |  |  |
-|  |  |  |
-| Yht | 32 |  |
+| 27.11. | 3 | Kirjanpito-osio tuki isolle määrälle rivejä (voi rullata ylös ja alas) |
+| 28.11. | 3 | UserService lisäys, dokumentaation päivitys ajan tasalle, user-näkymän refaktorointi |
+| 1.12. | 4 | AccountingService ja alv-logiikan tuominen ohjelmaan |
+| 2.12. | 2 | Refaktorointia ja testien tekoa |
+| Yht | 53 |  |
