@@ -15,4 +15,5 @@
 | 28.11. | 3 | UserService lisäys, dokumentaation päivitys ajan tasalle, user-näkymän refaktorointi |
 | 1.12. | 4 | AccountingService ja alv-logiikan tuominen ohjelmaan |
 | 2.12. | 2 | Refaktorointia ja testien tekoa |
-| Yht | 53 |  |
+| 4.12. | 4 | Ensimmäinen sekvenssikaavio, seuraavan lisäfeaturen suunnittelua |
+| Yht | 57 |  |
