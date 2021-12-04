@@ -18,7 +18,7 @@ Sovellus toimii erityisesti harjoituksena yksinkertaisen sovelluksen toteutuksel
 Sovelluksen peruslogiikka on yksinkertainen, mutta aihe sen luontoinen, että edistymisen mukaan sovellusta on helppo laajentaa erilaisilla lisäominaisuuksilla. Mahdollisia laajennuksia on esimerkiksi:
 - Alv lisääminen tapahtumiin ✔️
 - Koosteet rajatuilta aikaväliltä
-- Laajempaa statistiikkaa
+- Laajempaa statistiikkaa ✔️
 - Tapahtumien muokkaus
 - Eri tyyppisiä myyntejä ja ostoja
 - Uudet käyttäjäroolit
