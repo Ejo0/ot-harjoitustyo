@@ -16,4 +16,5 @@
 | 1.12. | 4 | AccountingService ja alv-logiikan tuominen ohjelmaan |
 | 2.12. | 2 | Refaktorointia ja testien tekoa |
 | 4.12. | 4 | Ensimmäinen sekvenssikaavio, seuraavan lisäfeaturen suunnittelua |
-| Yht | 57 |  |
+| 5.12. | 3 | Testailua lisäfeatureen liittyen (haku aikaväliltä), testien tekoa, koodin siistimistä |
+| Yht | 60 |  |
