@@ -7,8 +7,8 @@ class ExpenseRowService:
     def __init__(self) -> None:
         self._expenses_repository = ExpensesRepository()
 
-    def rows_sorted_by_date(self, user_id: int, is_reverse=False):
-        expense_rows = self._expenses_repository.get_all_expense_rows(user_id)
+    def rows_sorted_by_date(self, user_id: int, start_date: date = None, end_date: date = None, is_reverse=False):
+        expense_rows = self._expenses_repository.get_expense_rows_from_range(user_id, start_date, end_date)
         return sorted(expense_rows, key=lambda row: row.date, reverse=is_reverse)
 
     def create_expense_row(self, user_id: int, event_date: date,

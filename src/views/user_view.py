@@ -223,7 +223,8 @@ class NewEvent:
             bg='white'
         )
 
-        def add_event():
+        def add_event(event=None):
+            date_entry.focus()
             user_id = self._user.id
             try:
                 event_date = date_entry.get()
@@ -262,7 +263,6 @@ class NewEvent:
             description_entry.delete(0, END)
             date_entry.delete(0, END)
             self._show_success()
-            
 
         event_type_label.grid(row=0, column=0, padx=5, pady=5, sticky='w')
         sale_event_radiobutton.grid(row=0, column=1, padx=5, sticky='w')
@@ -276,8 +276,11 @@ class NewEvent:
         description_label.grid(row=5, column=0, padx=5, pady=5, sticky='w')
         description_entry.grid(row=5, column=1, padx=5, pady=5, sticky='w')
         create_event_button.grid(row=6, column=1, padx=5, pady=5, sticky='w')
+
         event_type_variable.set(1)
         vat_variable.set(vat_options[0])
+        date_entry.focus()
+        create_event_button.bind('<Return>', add_event)
 
 
 class Statistics:
@@ -288,41 +291,119 @@ class Statistics:
         self._accounting_service = AccountingService()
         self._sale_row_service = SaleRowService()
         self._expense_row_service = ExpenseRowService()
-        self._frame = None
+        self._date_range_frame = None
+        self._date_error_label = None
+        self._body_frame = None
     
         self._initialize()
     
     def pack(self):
-        self._frame.pack(fill='both', expand=1)
+        self._date_range_frame.pack(fill='x')
+        self._body_frame.pack(fill='both', expand=1)
         
     def destroy(self):
-        self._frame.destroy()
-        
-    def _initialize(self):
-        self._frame = Frame(master=self._parent, bg='white')
-        bookkeeping_text = Text(
-            master=self._frame,
+        self._date_range_frame.destroy()
+        self._body_frame.destroy()
+    
+    def _select_range(self, start_date, end_date):
+        self._body_frame.destroy()
+        self._init_body(start_date, end_date)
+        self._body_frame.pack(fill='both', expand=1)
+    
+    def _show_date_error(self, error_text):
+        self._date_error_label['text'] = error_text
+    
+    def _hide_date_error(self):
+        self._date_error_label['text'] = ""
+    
+    def _init_date_range(self):
+        self._date_range_frame = Frame(self._parent, bg='white')
+        date_range_label = Label(
+            master=self._date_range_frame,
             bg='white',
+            text='Hae aikaväliltä:'
         )
-        total_sales = self._accounting_service.total_sales_including_vat(self._user.id) / 100.0
-        total_expenses = self._accounting_service.total_expenses_including_vat(self._user.id) / 100.0
-        net_sales = self._accounting_service.net_sales(self._user.id) / 100.0
-        net_expenses = self._accounting_service.net_expenses(self._user.id) / 100.0
-        net_result = self._accounting_service.net_result(self._user.id) / 100.0
-        vat_on_sales = self._accounting_service.vat_on_sales(self._user.id) / 100.0
-        deductible_vat = self._accounting_service.deductible_vat(self._user.id) / 100.0
-        vat_payable = self._accounting_service.vat_payable(self._user.id) / 100.0
+        date_range_start_entry = Entry(
+            self._date_range_frame,
+            bg='white'
+        )
+        date_range_separator_label = Label(
+            master=self._date_range_frame,
+            bg='white',
+            text=' – '
+        )
+        date_range_end_entry = Entry(
+            self._date_range_frame,
+            bg='white'
+        )
+        date_range_button = Button(
+            master=self._date_range_frame,
+            text='Hae',
+            bg='white',
+            command=lambda: try_range()
+        )
+        self._date_error_label = Label(
+            master=self._date_range_frame,
+            bg='white',
+            foreground='red'
+        )
 
+        date_range_label.pack(side='left', padx=5, pady=5)
+        date_range_start_entry.pack(side='left', padx=5, pady=5)
+        date_range_separator_label.pack(side='left', padx=5, pady=5)
+        date_range_end_entry.pack(side='left', padx=5, pady=5)
+        date_range_button.pack(side='left', padx=5, pady=5)
+        self._date_error_label.pack(side='left', padx=5, pady=5)
+
+        date_range_start_entry.focus()
+
+        def try_range(event=None):
+            date_range_start_entry.focus()
+            try:
+                start_date = date_range_start_entry.get()
+                end_date = date_range_end_entry.get()
+                if start_date == "":
+                    start_date_as_date = None
+                else: 
+                    day, month, year = start_date.split(".")
+                    start_date_as_date = date(int(year), int(month), int(day))
+                if end_date == "":
+                    end_date_as_date = None
+                else:
+                    day, month, year = end_date.split(".")
+                    end_date_as_date = date(int(year), int(month), int(day))
+            except:
+                self._show_date_error('Syötä päiväykset muodossa 1.1.2021')
+                return
+            if (start_date_as_date and end_date_as_date) and start_date_as_date > end_date_as_date:
+                self._show_date_error('Lopetuspäivämäärä ei saa olla aloituspäivämäärää pienempi')
+                return
+            self._select_range(start_date_as_date, end_date_as_date)
+            self._hide_date_error()
+        
+        date_range_button.bind('<Return>', try_range)
+        
+    def _init_body(self, start_date: date = None, end_date: date = None):
+        self._body_frame = Frame(master=self._parent, bg='white')
+
+        total_sales = self._accounting_service.total_sales_including_vat(self._user.id, start_date, end_date) / 100.0
+        total_expenses = self._accounting_service.total_expenses_including_vat(self._user.id, start_date, end_date) / 100.0
+        net_sales = self._accounting_service.net_sales(self._user.id, start_date, end_date) / 100.0
+        net_expenses = self._accounting_service.net_expenses(self._user.id, start_date, end_date) / 100.0
+        net_result = self._accounting_service.net_result(self._user.id, start_date, end_date) / 100.0
+        vat_on_sales = self._accounting_service.vat_on_sales(self._user.id, start_date, end_date) / 100.0
+        deductible_vat = self._accounting_service.deductible_vat(self._user.id, start_date, end_date) / 100.0
+        vat_payable = self._accounting_service.vat_payable(self._user.id, start_date, end_date) / 100.0
 
         overview_label =Label(
-            master=self._frame,
+            master=self._body_frame,
             text =
                 f"KASSAVIRTA\nMyynnit (sis. alv): {total_sales:.2f} euroa\n" +
                 f"Ostot (sis. alv): {total_expenses:.2f} euroa\n\n" +
                 f"TULOS- JA ALV-LASKELMA\nLiikevaihto: {net_sales:.2f} euroa\n" +
                 f"Kulut: {net_expenses:.2f} euroa\n" +
                 f"Tulos: {net_result:.2f} euroa\n\n" +
-                f"Myynnin alv: {vat_on_sales:.2f} euroa\n" +
+                f"Myyntien alv: {vat_on_sales:.2f} euroa\n" +
                 f"Vähennettävä alv: {deductible_vat:.2f} euroa\n" +
                 f"Verolle suoritettava alv: {vat_payable:.2f} euroa\n",
             bg='white',
@@ -331,6 +412,10 @@ class Statistics:
         )
         overview_label.pack(fill='both')
 
+        bookkeeping_text = Text(
+            master=self._body_frame,
+            bg='white'
+        )
         bookkeeping_scrollbar = Scrollbar(
             bookkeeping_text,
             orient=VERTICAL,
@@ -340,8 +425,8 @@ class Statistics:
             borderwidth=0,
         )
 
-        sales = self._sale_row_service.rows_sorted_by_date(self._user.id)
-        expenses = self._expense_row_service.rows_sorted_by_date(self._user.id)
+        sales = self._sale_row_service.rows_sorted_by_date(self._user.id, start_date, end_date)
+        expenses = self._expense_row_service.rows_sorted_by_date(self._user.id, start_date, end_date)
         sales_header = f"{'MYYNNIT':10}{'Nro.':10}{'Pvm.':15}{'Summa (alv0)':>15}{'Alv':>15}{'Yht':>21}{'':10}{'Kuvaus'}\n"
         expenses_header = f"{'OSTOT':10}{'Nro.':10}{'Pvm.':15}{'Summa (alv0)':>15}{'Alv':>15}{'Yht':>21}{'':10}{'Kuvaus'}\n"
 
@@ -384,3 +469,9 @@ class Statistics:
 
         bookkeeping_text.pack(fill='both', expand=1)
         bookkeeping_scrollbar.pack(side=RIGHT, fill=Y)
+
+        bookkeeping_text.config(state=DISABLED)
+        
+    def _initialize(self):
+        self._init_date_range()
+        self._init_body()

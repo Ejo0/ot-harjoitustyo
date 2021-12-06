@@ -152,6 +152,8 @@ class UsersMenu:
         new_user_button.grid(row=1, column=2, padx=5, pady=5, sticky='w')
         pick_users_label.grid(row=3, column=0, padx=5, pady=5, sticky='w')
 
+        new_user_entry.focus()
+
         self._frame.grid_rowconfigure(2, minsize=30)
         for i in range(6):
             self._frame.grid_columnconfigure(i, minsize=200)

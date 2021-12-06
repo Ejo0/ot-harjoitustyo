@@ -26,16 +26,16 @@ class TestSalesRepository(unittest.TestCase):
         self.assertEqual(sale_row.vat, 0)
         self.assertEqual(sale_row.description, "Phone")
 
-    def test_get_all_sale_rows(self):
-        sale_rows = self._sales_repository.get_all_sale_rows(1)
+    def test_get_sale_rows_without_range(self):
+        sale_rows = self._sales_repository.get_sale_rows_from_range(1, None, None)
         self.assertEqual(len(sale_rows), 2)
         self.assertEqual(sale_rows[1].amount, 25050)
 
     def test_total_amount(self):
-        total = self._sales_repository.total_amount(1)
+        total = self._sales_repository.total_amount(1, None, None)
         self.assertEqual(total, 35050)
 
     def test_delete_all(self):
         self._sales_repository.delete_all()
-        sale_rows = self._sales_repository.get_all_sale_rows()
+        sale_rows = self._sales_repository.get_sale_rows_from_range(1, None, None)
         self.assertEqual(len(sale_rows), 0)

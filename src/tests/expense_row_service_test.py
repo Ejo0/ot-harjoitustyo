@@ -24,3 +24,7 @@ class TestExpenseRowService(unittest.TestCase):
         expenses = self._expense_row_service.rows_sorted_by_date(3)
         self.assertEqual(len(expenses), 3)
         self.assertEqual(expenses[0].amount, 9000)
+    
+    def test_assumed_expense_type_is_other_deductible(self):
+        expense = self._expense_row_service.get_expense_row(1)
+        self.assertEqual(expense.expense_type, "other_deductible")

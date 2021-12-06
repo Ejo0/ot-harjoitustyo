@@ -7,8 +7,8 @@ class SaleRowService:
     def __init__(self) -> None:
         self._sales_repository = SalesRepository()
 
-    def rows_sorted_by_date(self, user_id: int, is_reverse=False):
-        sale_rows = self._sales_repository.get_all_sale_rows(user_id)
+    def rows_sorted_by_date(self, user_id: int, start_date: date = None, end_date: date = None, is_reverse=False):
+        sale_rows = self._sales_repository.get_sale_rows_from_range(user_id, start_date, end_date)
         return sorted(sale_rows, key=lambda row: row.date, reverse=is_reverse)
 
     def create_sale_row(self, user_id: int, event_date: date,

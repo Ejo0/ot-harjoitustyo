@@ -14,15 +14,12 @@ class TestExpensesRepository(unittest.TestCase):
     def test_get_expense_uses_row_id_not_user_id(self):
         expense = self._expenses_repository.get_expense_row(1)
         self.assertEqual(expense.description, "Computer")
-
-    def test_get_all_rows_without_id_gives_rows_from_each_user(self):
-        expenses = self._expenses_repository.get_all_expense_rows()
-        self.assertEqual(len(expenses), 2)
-        self.assertEqual(expenses[0].user_id, 5)
-        self.assertEqual(expenses[1].vat, 10)
-        self.assertEqual(expenses[0].id, 1)
     
     def test_get_expense_row_date_type_is_datetime_date(self):
         expense = self._expenses_repository.get_expense_row(1)
         self.assertEqual(type(expense.date), date)
     
+    def test_expense_type_can_be_setted(self):
+        self._expenses_repository.create(1, date(2000, 1, 1), 1240, 24, "Exp 3", "purchase")
+        expense = self._expenses_repository.get_expense_row(3)
+        self.assertEqual(expense.expense_type, "purchase")
