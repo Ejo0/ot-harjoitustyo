@@ -238,7 +238,7 @@ class NewEvent:
             except: 
                 self._show_error("Tarkista summa")
                 return
-            if amount <= 0:
+            if amount == 0:
                 self._show_error("Tarkista summa")
                 return
             description = description_entry.get()

@@ -10,8 +10,8 @@ class AccountingService:
         self._sales_repository = SalesRepository()
 
     def vatless_amount(self, row) -> int:
-        vat_amount = row.amount / ((100 + row.vat) * 0.01)
-        return int(round(vat_amount, 0))
+        vatless_amount = row.amount / ((100 + row.vat) * 0.01)
+        return int(round(vatless_amount, 0))
 
     def vat_amount(self, row) -> int:
         vatless_amount = self.vatless_amount(row)
