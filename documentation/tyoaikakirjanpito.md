@@ -17,4 +17,6 @@
 | 2.12. | 2 | Refaktorointia ja testien tekoa |
 | 4.12. | 4 | Ensimmäinen sekvenssikaavio, seuraavan lisäfeaturen suunnittelua |
 | 5.12. | 3 | Testailua lisäfeatureen liittyen (haku aikaväliltä), testien tekoa, koodin siistimistä |
-| Yht | 60 |  |
+| 8.12. | 2 | Pientä viilausta ohjelmaan, mm. käyttöohjeiden lisäys Info-näkymään |
+| 9.12. | 2 | Docstring tekoa |
+| Yht | 64 |  |
