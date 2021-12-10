@@ -1,4 +1,8 @@
 # Vaatimusmäärittely
+
+HUOM!  
+tehty = ✔️
+
 ### Sovelluksen tarkoitus
 Tarkoituksena on toteuttaa työpöytäsovellus, jonka avulla käyttäjä(t) voi pitää kirjaa toiminimensä myynneistä ja ostoista.
 Käyttäjä voi lisätä uusia myynti- tai ostotapahtumia ja sovellus koostaa näistä yhdenkertaisen kirjanpidon, tarjoaa yhteenvedon ja joitain yksinkertaisia tunnuslukuja käyttäjälle.
@@ -17,7 +21,7 @@ Sovellus toimii erityisesti harjoituksena yksinkertaisen sovelluksen toteutuksel
 
 Sovelluksen peruslogiikka on yksinkertainen, mutta aihe sen luontoinen, että edistymisen mukaan sovellusta on helppo laajentaa erilaisilla lisäominaisuuksilla. Mahdollisia laajennuksia on esimerkiksi:
 - Alv lisääminen tapahtumiin ✔️
-- Koosteet rajatuilta aikaväliltä
+- Koosteet rajatuilta aikaväliltä ✔️
 - Laajempaa statistiikkaa ✔️
 - Tapahtumien muokkaus
 - Eri tyyppisiä myyntejä ja ostoja
