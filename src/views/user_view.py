@@ -299,7 +299,7 @@ class Statistics:
     
     def pack(self):
         self._date_range_frame.pack(fill='x')
-        self._body_frame.pack(fill='both', expand=1)
+        self._body_frame.pack(fill='both', expand=1, padx=5, pady=5)
         
     def destroy(self):
         self._date_range_frame.destroy()
