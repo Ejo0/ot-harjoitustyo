@@ -24,6 +24,8 @@ Kun tiedot on syötetty, tapahtuman saa lisättyä klikkaamalla 'Luo tapahtuma'.
 Lisättyä tapahtumaa ei voi muokata tai poistaa. Virheellisen tapahtuman voi oikaista lisäämällä vastaava tapahtuma uudestaan,
 mutta summa -merkkisenä. Näin tapahtumat kumoavat toisensa ja yhteisvaikutus on +/- 0.
 
+![tapahtuman_oikaisu](images/tapahtuman_oikaisu.png)
+
 ## Kooste
 Käyttäjät-näkymän Kooste-osio näyttää kirjanpidon tapahtumista aikajärjestyksessä, myynnit ja ostot eroteltuna.
 Lisäksi näkymästä löytyy seuraavat tunnusluvut:
