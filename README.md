@@ -32,7 +32,7 @@ Yhteenveto-osiossa on mahdollista hakea tapahtumien listaus sekä statistiikka h
 
 Ensimmäinen release: [Viikko 5](https://github.com/Ejo0/ot-harjoitustyo/releases/tag/v.viikko5)
 
-Toinen release: Viikko 6 (placeholder)
+Toinen release: [Viikko 6](https://github.com/Ejo0/ot-harjoitustyo/releases/tag/v.viikko6)
 
 ## Versio
 
