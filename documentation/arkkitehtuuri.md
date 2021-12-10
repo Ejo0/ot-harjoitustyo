@@ -1,11 +1,25 @@
-### Pakkauskaavio
+# Arkkitehtuuri
+
+## Ohjelman rakenne
+
+Src-kansiosta löytyy ohjelman alustukseen ja käynnistykseen liittyviä tiedostoja, sekä varsinaiseen toiminnallisuuteen liittyvät kansiot:
+- `models` sisältää tietokohteita kuvaavia luokkia
+- `repositories` kansion luokat vastaavat SQL-tietokannan kanssa kommunikoinnista
+- `services` luokat vastaavat sovelluslogiikasta ja toimivat rajapintoina GUI-luokkien ja tietokantaoperaatioiden välillä
+- `tests` sisältää ohjelman testit
+- `views` sisältää graafisesta käyttöliittymästä vastaavat luokat
+
+##### Pakkauskaavio
+
 ![pakkauskaavio](images/pakkauskaavio.png)
 
-### Pakkauskaavio luokilla
+##### Pakkauskaavio luokilla
 
 ![pakkauskaavio_luokilla](images/pakkauskaavio_luokilla.png)
 
-### Toiminnallisuudet
+## Graafinen käyttöliittymä
+
+## Toiminnallisuudet
 
 #### Myyntitapahtuma
 
