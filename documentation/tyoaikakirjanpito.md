@@ -19,4 +19,5 @@
 | 5.12. | 3 | Testailua lisäfeatureen liittyen (haku aikaväliltä), testien tekoa, koodin siistimistä |
 | 8.12. | 2 | Pientä viilausta ohjelmaan, mm. käyttöohjeiden lisäys Info-näkymään |
 | 9.12. | 2 | Docstring tekoa |
-| Yht | 64 |  |
+| 10.12. | 4 | Docstring jatkoa, arkkitehtuurikuvaksen tekoa, release, README:n ja dokumentaation päivitys, alustavat käyttöohjeet |
+| Yht | 68 |  |
