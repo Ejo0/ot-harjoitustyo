@@ -20,4 +20,5 @@
 | 8.12. | 2 | Pientä viilausta ohjelmaan, mm. käyttöohjeiden lisäys Info-näkymään |
 | 9.12. | 2 | Docstring tekoa |
 | 10.12. | 4 | Docstring jatkoa, arkkitehtuurikuvaksen tekoa, release, README:n ja dokumentaation päivitys, alustavat käyttöohjeet |
-| Yht | 68 |  |
+| 11.12. | 2 | Arkkitehtuurikuvauksen kirjoittelua |
+| Yht | 70 |  |
