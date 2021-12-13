@@ -23,17 +23,17 @@ class TestAccountingService(TestCase):
         self._expense_row_service.create_expense_row(5, date(2001, 1, 1), 110, 10, "Expense 2")
 
     def test_vatless_amount_rounds_vat_correctly(self):
-        sale_row = self._sale_row_service.get_sale_row(3)
+        sale_row = self._sale_row_service.rows_sorted_by_date(5, None, None)[2]
         vatless_amount = self._accounting_service.vatless_amount(sale_row)
         self.assertEqual(vatless_amount, 1613)
     
     def test_vat_amount_rounds_vat_as_intented(self):
-        sale_row = self._sale_row_service.get_sale_row(4)
+        sale_row = self._sale_row_service.rows_sorted_by_date(5, None, None)[0]
         vat_amount = self._accounting_service.vat_amount(sale_row)
         self.assertEqual(vat_amount, 1935)
     
     def test_vat_and_vatless_amount_total_is_same_as_amount(self):
-        sale_row = self._sale_row_service.get_sale_row(4)
+        sale_row = self._sale_row_service.rows_sorted_by_date(5, None, None)[0]
         vatless_amount = self._accounting_service.vatless_amount(sale_row)
         vat_amount = self._accounting_service.vat_amount(sale_row)
         total_sum = vat_amount + vatless_amount
@@ -58,3 +58,14 @@ class TestAccountingService(TestCase):
     def test_vat_payable_gives_correct_amount_from_range(self):
         vat_payable = self._accounting_service.vat_payable(5, None, date(2000, 5, 5))
         self.assertEqual(vat_payable, 1741)
+
+    def test_adding_negative_expense_gives_correct_results(self):
+        self._expense_row_service.create_expense_row(7, date(2000, 1, 1), 124000, 24, "Computer")
+        self._expense_row_service.create_expense_row(7, date(2000, 1, 1), -24800, 24, "Discount")
+        deductible_vat = self._accounting_service.deductible_vat(7)
+        net_result = self._accounting_service.net_result(7)
+        total_expenses = self._accounting_service.total_expenses_including_vat(7)
+        
+        self.assertEqual(deductible_vat, 19200)
+        self.assertEqual(net_result, -80000)
+        self.assertEqual(total_expenses, 99200)

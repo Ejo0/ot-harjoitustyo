@@ -2,7 +2,7 @@ class ExpenseRow:
     """An instance of an ExpenseRow represents one expense event in bookkeeping.
     """
 
-    def __init__(self, exp_id: int, user_id: int, exp_date, amount: int, vat: int, desc: int, exp_type: str):
+    def __init__(self, exp_id: int, user_id: int, exp_date, amount: int, vat: int, desc: int):
         """Constuctor of ExpenseRow, all values to attributes are set based on args.
 
         Args:
@@ -12,15 +12,13 @@ class ExpenseRow:
             amount (int): Amount of event in cents
             vat (int): Vat percentage of the row. Eg. value for 24% vat is 24
             desc (int): Description of the expense event. Eg. 'Work laptop'
-            exp_type (str): Type of the expense, eg. 'other_deductible'
         """
         self._id = exp_id
         self._user_id = user_id
-        self._date = exp_date # type: datetime.date
+        self._date = exp_date
         self._amount = amount
         self._vat = vat
         self._description = desc
-        self._expense_type = exp_type
 
     @property
     def id(self):
@@ -45,7 +43,3 @@ class ExpenseRow:
     @property
     def description(self):
         return self._description
-
-    @property
-    def expense_type(self):
-        return self._expense_type

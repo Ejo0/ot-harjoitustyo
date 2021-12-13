@@ -41,14 +41,6 @@ class UserRepository:
             output.append(User(user[0], user[1]))
         return output
 
-    def delete_user(self, user_id: int):
-        """Deletes single user from Users-table
-
-        Args:
-            user_id (int): Id of user
-        """
-        self.__connector.execute("DELETE FROM Users WHERE id = ?", [user_id])
-
     def delete_all(self):
         """Deletes all users from Users-table
         """

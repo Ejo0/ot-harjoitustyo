@@ -26,7 +26,7 @@ def initialize_database():
         """
         CREATE TABLE Expenses
         (id INTEGER PRIMARY KEY, user_id INTEGER, event_date DATE,
-        amount INTEGER, vat INTEGER, description TEXT, type TEXT)
+        amount INTEGER, vat INTEGER, description TEXT)
         """)
 
 

@@ -17,34 +17,25 @@ class TestUserRepository(unittest.TestCase):
         self.assertEqual(ada.id, 1)
 
     def test_get_user(self):
-        self._add_tree_users()
+        self._add_three_users()
         user = self._user_repository.get_user(2)
 
         self.assertEqual(user.name, "Doe")
 
     def test_get_all(self):
-        self._add_tree_users()
+        self._add_three_users()
         users = self._user_repository.get_all()
 
         self.assertEqual(len(users), 3)
 
-    def test_delete_user(self):
-        self._add_tree_users()
-        self._user_repository.delete_user(2)
-        users = self._user_repository.get_all()
-
-        self.assertEqual(len(users), 2)
-        self.assertEqual(users[0].name, "Ada")
-        self.assertEqual(users[1].name, "John")
-
     def test_delete_all(self):
-        self._add_tree_users()
+        self._add_three_users()
         self._user_repository.delete_all()
         users = self._user_repository.get_all()
 
         self.assertEqual(len(users), 0)
 
-    def _add_tree_users(self):
+    def _add_three_users(self):
         self._user_repository.create("Ada")
         self._user_repository.create("Doe")
         self._user_repository.create("John")

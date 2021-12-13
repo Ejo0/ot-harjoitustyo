@@ -162,29 +162,12 @@ class AccountingService:
         return self._expenses_repository.total_amount(user_id, start_date, end_date)
 
     def _total_vatless_amount(self, rows: list) -> int:
-        """Calculates total vatless amount of events in given list. (eg. list of 5 ExpenseRows).
-        To avoid rounding problems, vatless amount is calculated from each row and results are added to output.
-
-        Args:
-            rows (list): list of SaleRows or ExpenseRows
-
-        Returns:
-            int: Total vatless amount of events in given list
-        """
         total_vatless_amount = 0
         for row in rows:
             total_vatless_amount += self.vatless_amount(row)
         return total_vatless_amount
 
     def _total_vat(self, rows: list) -> int:
-        """Calculates total vat amount of events in given list.
-
-        Args:
-            rows (list): list of SaleRows or ExpenseRows
-
-        Returns:
-            int: Total vat amount of events in given list
-        """
         total_vat = 0
         for row in rows:
             total_vat += self.vat_amount(row)

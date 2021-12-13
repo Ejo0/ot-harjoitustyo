@@ -23,11 +23,12 @@ class ExpenseRowService:
         Returns:
             [list]: A list of ExpenseRow-instances, ordered by date
         """
-        expense_rows = self._expenses_repository.get_expense_rows_from_range(user_id, start_date, end_date)
+        expense_rows = self._expenses_repository.get_expense_rows_from_range(
+            user_id, start_date, end_date)
         return sorted(expense_rows, key=lambda row: row.date, reverse=is_reverse)
 
     def create_expense_row(self, user_id: int, event_date: date,
-                            amount: int, vat: int, description: str):
+                           amount: int, vat: int, description: str):
         """Creates an expense to database.
 
         Args:
@@ -45,14 +46,3 @@ class ExpenseRowService:
         """Deletes all expenses from database.
         """
         self._expenses_repository.delete_all()
-
-    def get_expense_row(self, row_id: int):
-        """Returns single ExpenseRow
-
-        Args:
-            row_id (int): Id of the expense
-
-        Returns:
-            [type]: ExpenseRow
-        """
-        return self._expenses_repository.get_expense_row(row_id)

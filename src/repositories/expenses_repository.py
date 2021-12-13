@@ -16,7 +16,7 @@ class ExpensesRepository:
         """
         self.__connector.execute("DELETE FROM Expenses")
 
-    def create(self, user_id: int, exp_date: date, amount: int, vat: int, desc: str, exp_type = None):
+    def create(self, user_id: int, exp_date: date, amount: int, vat: int, desc: str):
         """Creates new row to Expenses-table
 
         Args:
@@ -25,29 +25,13 @@ class ExpensesRepository:
             amount (int): Total amount of expense in cents, including vat
             vat (int): Vat percentage of the expense
             desc (str): Description of the expense
-            exp_type ([type], optional): Expense type, e.g. other_deductible. Defaults to None.
         """
-        if not exp_type:
-            exp_type = "other_deductible"
         date_as_str = f"{exp_date.year:04d}-{exp_date.month:02d}-{exp_date.day:02d}"
         self.__connector.execute(
-            "INSERT INTO Expenses (user_id, event_date, amount, vat, description, type)" +
-            "VALUES (?,?,?,?,?,?)",
-            [user_id, date_as_str, amount, vat, desc, exp_type]
+            "INSERT INTO Expenses (user_id, event_date, amount, vat, description)" +
+            "VALUES (?,?,?,?,?)",
+            [user_id, date_as_str, amount, vat, desc]
         )
-
-    def get_expense_row(self, row_id: int):
-        """Gets an expense from database
-
-        Args:
-            row_id (int): Id of the expense
-
-        Returns:
-            [type]: ExpenseRow
-        """
-        expense_row = self.__connector.execute(
-            "SELECT * FROM Expenses WHERE id = ?", [row_id]).fetchall()
-        return self._tuple_to_expense_row(expense_row)[0]
 
     def get_expense_rows_from_range(self, user_id: int, start_date: date, end_date: date):
         """Returns expenses of an user from given range. If start and/or end date is missing
@@ -94,16 +78,6 @@ class ExpensesRepository:
         return total[0] if total[0] else 0
 
     def _dates_to_str(self, start_date: date, end_date: date)-> tuple:
-        """Returns start and end dates as two strings in SQL standard format, e.g. '2000-01-01'.
-        If start and/or end dates are missing, default values are given (0001-01-01 and 9999-12-31)
-
-        Args:
-            start_date (date): Start date as date-object
-            end_date (date): End date as date-object
-
-        Returns:
-            tuple: Start and end dates as strings, packed in a tuple
-        """
         if start_date:
             start_date_as_str = f"{start_date.year:04d}-{start_date.month:02d}-{start_date.day:02d}"
         else:
@@ -115,20 +89,12 @@ class ExpensesRepository:
         return (start_date_as_str, end_date_as_str)
 
     def _tuple_to_expense_row(self, expense_rows: list):
-        """Creates a list of ExpenseRows using list of tuples containing data from Expenses-table
-
-        Args:
-            expense_rows (list): A list of tuples, each tuple is representing one expense event.
-
-        Returns:
-            [type]: A list of ExpenseRow-objects
-        """
         output = []
         for expense_row in expense_rows:
             year, month, day = expense_row[2].split("-")
             event_date_as_date = date(int(year), int(month), int(day))
             output.append(ExpenseRow(
                 expense_row[0], expense_row[1], event_date_as_date,
-                expense_row[3], expense_row[4], expense_row[5], expense_row[6]
+                expense_row[3], expense_row[4], expense_row[5]
             ))
         return output

@@ -13,12 +13,12 @@ class TestSalesRepository(unittest.TestCase):
 
     def test_create(self):
         self._sales_repository.create(4, date(2021, 12, 30), 7000, 0, "Tools")
-        sale_row = self._sales_repository.get_sale_row(3)
+        sale_row = self._sales_repository.get_sale_rows_from_range(4, None, None)[0]
         self.assertEqual(sale_row.user_id, 4)
         self.assertEqual(sale_row.id, 3)
 
-    def test_get_sale_row(self):
-        sale_row = self._sales_repository.get_sale_row(1)
+    def test_get_sale_rows_from_range_returns_sales_with_correct_values(self):
+        sale_row = self._sales_repository.get_sale_rows_from_range(1, None, None)[0]
         self.assertEqual(sale_row.id, 1)
         self.assertEqual(sale_row.user_id, 1)
         self.assertEqual(sale_row.date.day, 3)

@@ -45,14 +45,3 @@ class SaleRowService:
         """Deletes all rows from Sales table
         """
         self._sales_repository.delete_all()
-
-    def get_sale_row(self, row_id: int):
-        """Gets single sale row from Sales table
-
-        Args:
-            row_id (int): Id of sale event
-
-        Returns:
-            [type]: SaleRow-object
-        """
-        return self._sales_repository.get_sale_row(row_id)

@@ -19,11 +19,6 @@ class SalesRepository:
             [user_id, date_as_str, amount, vat, description]
         )
 
-    def get_sale_row(self, row_id: int):
-        sale_row = self.__connector.execute(
-            "SELECT * FROM Sales WHERE id = ?", [row_id]).fetchall()
-        return self._tuple_to_sale_row(sale_row)[0]
-
     def get_sale_rows_from_range(self, user_id: int, start_date: date, end_date: date):
         start_date_as_str, end_date_as_str = self._dates_to_str(start_date, end_date)
 
