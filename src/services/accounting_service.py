@@ -41,35 +41,6 @@ class AccountingService:
         vatless_amount = self.vatless_amount(row)
         return row.amount - vatless_amount
 
-    def total_vatless_amount(self, rows: list) -> int:
-        """Calculates total vatless amount of events in given list. (eg. list of 5 ExpenseRows).
-        To avoid rounding problems, vatless amount is calculated from each row and results are added to output.
-
-        Args:
-            rows (list): list of SaleRows or ExpenseRows
-
-        Returns:
-            int: Total vatless amount of events in given list
-        """
-        total_vatless_amount = 0
-        for row in rows:
-            total_vatless_amount += self.vatless_amount(row)
-        return total_vatless_amount
-
-    def total_vat(self, rows: list) -> int:
-        """Calculates total vat amount of events in given list.
-
-        Args:
-            rows (list): list of SaleRows or ExpenseRows
-
-        Returns:
-            int: Total vat amount of events in given list
-        """
-        total_vat = 0
-        for row in rows:
-            total_vat += self.vat_amount(row)
-        return total_vat
-
     def vat_on_sales(self, user_id: int, start_date: date = None, end_date: date = None) -> int:
         """Calculates total vat of SaleRows of an user from given date-range.
 
@@ -83,7 +54,7 @@ class AccountingService:
         """
         sale_rows = self._sales_repository.get_sale_rows_from_range(
             user_id, start_date, end_date)
-        return self.total_vat(sale_rows)
+        return self._total_vat(sale_rows)
 
     def deductible_vat(self, user_id: int, start_date: date = None, end_date: date = None) -> int:
         """Calculates total vat of ExpenseRows of an user from given date-range.
@@ -99,7 +70,7 @@ class AccountingService:
         expense_rows = self._expenses_repository.get_expense_rows_from_range(
             user_id, start_date, end_date
         )
-        return self.total_vat(expense_rows)
+        return self._total_vat(expense_rows)
 
     def vat_payable(self, user_id: int, start_date: date = None, end_date: date = None) -> int:
         """Calculates vat amount of an user to be paid to Tax authority from given range.
@@ -131,7 +102,7 @@ class AccountingService:
         """
         sale_rows = self._sales_repository.get_sale_rows_from_range(
             user_id, start_date, end_date)
-        return self.total_vatless_amount(sale_rows)
+        return self._total_vatless_amount(sale_rows)
 
     def net_expenses(self, user_id: int, start_date: date = None, end_date: date = None) -> int:
         """Calculates total expenses (vatless amount) of an user from given range.
@@ -146,7 +117,7 @@ class AccountingService:
         """
         expense_rows = self._expenses_repository.get_expense_rows_from_range(
             user_id, start_date, end_date)
-        return self.total_vatless_amount(expense_rows)
+        return self._total_vatless_amount(expense_rows)
 
     def net_result(self, user_id: int, start_date: date = None, end_date: date = None) -> int:
         """Calculates net result of user from given range.
@@ -189,3 +160,32 @@ class AccountingService:
             int: Total expenses including vat
         """
         return self._expenses_repository.total_amount(user_id, start_date, end_date)
+
+    def _total_vatless_amount(self, rows: list) -> int:
+        """Calculates total vatless amount of events in given list. (eg. list of 5 ExpenseRows).
+        To avoid rounding problems, vatless amount is calculated from each row and results are added to output.
+
+        Args:
+            rows (list): list of SaleRows or ExpenseRows
+
+        Returns:
+            int: Total vatless amount of events in given list
+        """
+        total_vatless_amount = 0
+        for row in rows:
+            total_vatless_amount += self.vatless_amount(row)
+        return total_vatless_amount
+
+    def _total_vat(self, rows: list) -> int:
+        """Calculates total vat amount of events in given list.
+
+        Args:
+            rows (list): list of SaleRows or ExpenseRows
+
+        Returns:
+            int: Total vat amount of events in given list
+        """
+        total_vat = 0
+        for row in rows:
+            total_vat += self.vat_amount(row)
+        return total_vat
