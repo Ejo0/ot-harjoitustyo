@@ -53,7 +53,7 @@ UserView
 
 Ohjelmassa olevat tietokohteet ovat käyttäjät sekä myynti- ja ostotapahtumat. Näitä edustaa models-kansion luokat [User](../src/models/user.py), [SaleRow](../src/models/sale_row.py) ja [ExpenseRow](../src/models/expense_row.py). Jokainen myynti- ja ostotapahtuma kuuluu yhdelle käyttäjälle, ja käyttäjillä voi olla useita tapahtumia.
 
-[tietokohde_relaatiot](images/tietokohde_relaatiot.png)
+![tietokohde_relaatiot](images/tietokohde_relaatiot.png)
 
 Sovelluslogiikasta vastaa [services](../src/services)-kansion luokat [AccountingService](../src/services/accounting_service.py), [ExpenseRowService](../src/services/expense_row_service.py), [SaleRowService](../src/services/sale_row_service.py) sekä [UserService](../src/services/user_service.py). Näistä kolme viimeisintä toimii GUI:n käytössä olevina rajapintoina tiedon lisäämiselle ja haulle tietokannasta. Tiettyä tietokohdetta edustava service kommunikoi vastaavan repository-luokan kanssa, joka vastaa varsinaisista SQL-komennoista.
 
