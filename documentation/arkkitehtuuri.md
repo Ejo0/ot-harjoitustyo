@@ -53,6 +53,8 @@ UserView
 
 Ohjelmassa olevat tietokohteet ovat käyttäjät sekä myynti- ja ostotapahtumat. Näitä edustaa models-kansion luokat [User](../src/models/user.py), [SaleRow](../src/models/sale_row.py) ja [ExpenseRow](../src/models/expense_row.py). Jokainen myynti- ja ostotapahtuma kuuluu yhdelle käyttäjälle, ja käyttäjillä voi olla useita tapahtumia.
 
+[tietokohde_relaatiot](images/tietokohde_relaatiot.png)
+
 Sovelluslogiikasta vastaa [services](../src/services)-kansion luokat [AccountingService](../src/services/accounting_service.py), [ExpenseRowService](../src/services/expense_row_service.py), [SaleRowService](../src/services/sale_row_service.py) sekä [UserService](../src/services/user_service.py). Näistä kolme viimeisintä toimii GUI:n käytössä olevina rajapintoina tiedon lisäämiselle ja haulle tietokannasta. Tiettyä tietokohdetta edustava service kommunikoi vastaavan repository-luokan kanssa, joka vastaa varsinaisista SQL-komennoista.
 
 `AccountingService` hyödyntää myynneistä ja ostoista vastaavia repository-luokkia tiedon hakemiseen ja luo erilaisia tunnuslukuja ja yhteenvetoja sovelluksen käyttöön. `AccountingService`-luokkaa käytetään tiedon hakuun ja soveltamiseen, mutta muista serviceistä poiketen luokkaa ei käytetä tiedon pysyväistallennukseen.
@@ -78,9 +80,9 @@ Jos tietoa luetaan:
 - _repository_ siistii tietoa ja paluttaa _servicelle_ esim. `User`-olion tai listan olioita
 - _service_ vastaavasti mahdollisesti jatkohyödyntää tietoa, ja palauttaa sen lopulta _view_-luokalle
 
-Alla on kuvattu joitain esimerkkejä toiminnallisuuksista
+Alla on kuvattu joitain esimerkkejä toiminnallisuuksista.
 
-### Myyntitapahtuma
+### Myyntitapahtuman lisäys
 
 Käyttäjä pystyy luomaan myyntitapahtuman klikkaamalla käyttäjänäkymän (`UserView`) 'Lisää tapahtuma' -painiketta. Painike ohjaa formille, mistä valitaan tyypiksi 'Myynti' (oletusvalinta) ja syötetään pyydetyt tiedot:
 - Päivämäärä
@@ -91,6 +93,14 @@ Käyttäjä pystyy luomaan myyntitapahtuman klikkaamalla käyttäjänäkymän (`
 Formi informoi käyttäjää mahdollisten virheellisten syötteiden tapahtuessa. Kun tiedot on syötetty, tapahtuman saa lisättyä 'Lisää tapahtuma' -painikkeen avulla. Painike kutsuu `add_event`-metodia, joka validoi syötteet ja jos syöte on ok, lisätään tapahtuma tietokantaan. `UserView` kutsuu `SaleRowService`-luokan metodia `create_sale_row`, joka puolestaan kutsuu `SalesRepository`-luokan metodia `create`. Metodi lisää rivin sqlite3 connectorilla (`db_connector`) tietokantaan `Sales`-tauluun. Tapahtuma kuvattu alla sekvenssikaavion avulla.
 
 ![sekvenssikaavio_myyntitapahtuma](images/sekvenssikaavio_myyntitapahtuma.png)
+
+### Liikevaihto halutulta aikaväliltä
+
+Käyttäjänäkymän 'Kooste'-osiossa näkyy erilaisia tapahtumiin perustuvia tunnuslukuja. Näiden laskemisesta vastaa `AccountingService`-luokka. Oletusasetuksena on lukujen laskeminen kaikista tapahtumista (aikaväliksi on kovakoodattu 1.1.1.-31.12.9999), mutta lisäämällä 'Hae aikaväliltä' -kohtaan alku ja/tai lopetuspäivämäärän, luvut lasketaan uudestaan annettujen päivämäärärajojen mukaisesti.
+
+'Hae'-nappia painamalla kutsutaan käyttäjänäkymän `Statistics`-luokan `try_range`-metodia, joka validoi syötteen ja sisäisten metodien kautta päivittää näkymän uusilla päivämääräasetuksilla. `Statistics`-luokasta kutsutaan haluttua `AccountingService`:n funktiota, joka on esimerkin tapauksessa `net_sales`. Funktio hakee ensin datan `SalesRepository`-luokan hakufunktiota kutsumalla ja laskee saatujen myyntitapahtumien perusteella liikevaihdon, joka palautetaan `Statistics`-luokan käyttöön. Alla on esimerkkinä sekvenssikaavio liikevaihdon hausta 1.1.2021 alkaen (eli loppupäivämäärä on tyhjä).
+
+![sekvenssikaavio_liikevaihto](images/sekvenssikaavio_liikevaihto.png)
 
 ## Rajoitteet
 
