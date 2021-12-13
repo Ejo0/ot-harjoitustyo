@@ -57,11 +57,30 @@ Sovelluslogiikasta vastaa [services](../src/services)-kansion luokat [Accounting
 
 `AccountingService` hyödyntää myynneistä ja ostoista vastaavia repository-luokkia tiedon hakemiseen ja luo erilaisia tunnuslukuja ja yhteenvetoja sovelluksen käyttöön. `AccountingService`-luokkaa käytetään tiedon hakuun ja soveltamiseen, mutta muista serviceistä poiketen luokkaa ei käytetä tiedon pysyväistallennukseen.
 
-WIP
+## Tietokantaoperaatiot
+
+Ohjelmassa tiedon pysyväistalletus toteutetaan SGLite-tietokantaan. Tietokannan alustuksessa [initialize_database](../src/initialize_db.py) mahdollisesti olemassa olevat taulut tuhotaan ja uusi tietokanta alustetaan. Tietokannan tauluja ovat _Users_, _Sales_ ja _Expenses_. Tietokanta tallennetaan [data](../data/)-kansioon. Polku ja tietokannan nimi määritellään tiedostossa [db_connector.py](../src/db_connector.py) dotenv-kirjastoa hyödyntäen. Ohjelman testauksessa ympäristö määritellään ennen _db_connector.py_-tiedoston lukemista tiedoston [pytest.ini](../pytest.ini) avulla. Näin testauksessa ei kosketa tuotantotietokantaan. Tuotanto- ja testitietokantojen nimet määritellään tiedostoissa [.env.prod](../.env.prod) ja [.env.test](../.env.test).
+
+Ohjelman varsinaisista tietokantaoperaatioista vastaa _repositories_-kansion luokat [ExpensesRepository](../src/repositories/expenses_repository.py), [SalesRepository](../src/repositories/sales_repository.py) sekä [UserRepository](../src/repositories/user_repository.py). Kaikki repository-luokat hyödyntävät `db_connector`-oliota SQL-komentojen välittämiselle. Tietokantaoperaatiot ovat yksinkertaisia tiedon luomiseen ja hakuun liittyviä komentoja. Esimerkiksi `UserRepository`-luokalta löytyy komentoja:
+- `create` -> luo uuden rivin Users-tauluun
+- `get_user` -> hakee id:llä halutun käyttäjän tiedot ja palauttaa sitä vastaavan `User`-olion
+- `get_all` -> hakee kaikki käyttäjät ja palauttaa listana `User`-olioita
+- `delete_all` -> alustaa taulun
 
 ## Toiminnallisuudet
 
-#### Myyntitapahtuma
+Toiminnallisuudet liittyvät (GUI:ssa navigoinnin lisäksi) pääasiassa jonkinlaisiin tietokantaoperaatioihin. Perusrakenne on tyypillisesti seuraava:
+- jokin _view_ kutsuu _service_-luokkaa
+- _service_ kutsuu _repositoryä_
+- _repository_ toteuttaa tietokantaoperaation `db_connector`olion avulla
+
+Jos tietoa luetaan:
+- _repository_ siistii tietoa ja paluttaa _servicelle_ esim. `User`-olion tai listan olioita
+- _service_ vastaavasti mahdollisesti jatkohyödyntää tietoa, ja palauttaa sen lopulta _view_-luokalle
+
+Alla on kuvattu joitain esimerkkejä toiminnallisuuksista
+
+### Myyntitapahtuma
 
 Käyttäjä pystyy luomaan myyntitapahtuman klikkaamalla käyttäjänäkymän (`UserView`) 'Lisää tapahtuma' -painiketta. Painike ohjaa formille, mistä valitaan tyypiksi 'Myynti' (oletusvalinta) ja syötetään pyydetyt tiedot:
 - Päivämäärä
@@ -72,3 +91,15 @@ Käyttäjä pystyy luomaan myyntitapahtuman klikkaamalla käyttäjänäkymän (`
 Formi informoi käyttäjää mahdollisten virheellisten syötteiden tapahtuessa. Kun tiedot on syötetty, tapahtuman saa lisättyä 'Lisää tapahtuma' -painikkeen avulla. Painike kutsuu `add_event`-metodia, joka validoi syötteet ja jos syöte on ok, lisätään tapahtuma tietokantaan. `UserView` kutsuu `SaleRowService`-luokan metodia `create_sale_row`, joka puolestaan kutsuu `SalesRepository`-luokan metodia `create`. Metodi lisää rivin sqlite3 connectorilla (`db_connector`) tietokantaan `Sales`-tauluun. Tapahtuma kuvattu alla sekvenssikaavion avulla.
 
 ![sekvenssikaavio_myyntitapahtuma](images/sekvenssikaavio_myyntitapahtuma.png)
+
+## Rajoitteet
+
+### Toisteisuus
+
+_Sale_ ja _Expense_-oliot sekä näitä käsittelevät servicet ja repositoryt muistuttavat vahvasti toisiaan, mutta luokat on silti pidetty erillisinä. Ratkaisu ei ole ideaali, mutta sillä on myös perusteensa:
+- Reaalimaailmassa myynnit ja ostot ovat selkeästi erilaisia tapahtumia, ja laajemmassa sovelluksessa niillä olisi eri tyyppisiä ominaisuuksia.
+- Kurssin aikana valmistuvassa versiossa tapahtumat ovat vielä käytännössä vastaavia, mutta mahdollisen jatkokehityksen myötä tapahtumiin tulisi eri piirteitä. Näin jatkokehitys on luultavasti selkeämpää, kun luokat ovat valmiiksi eroteltuina.
+
+### Käyttöliittymä
+
+GUI:sta vastaavien luokkien koodi ei ole kovin viimeisteltyä. Koodista löytyy mm. eri tyyppisiä ratkaisuja saman kaltaisiin ongelmiin. Esimerkiksi uuden käyttäjän lisäämisestä vastaava metodi `_create_user`-renderöi lisäämisen jälkeen koko näkymän, vaikka pelkästään käyttäjä-nappien päivitys riittäisi. Luokissa on myös jonkin verran toisteisuutta esimerkiksi tyylittelyihin liittyen.
