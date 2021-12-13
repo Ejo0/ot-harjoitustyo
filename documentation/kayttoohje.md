@@ -1,5 +1,35 @@
 # Käyttöohjeet
 
+## Asennus
+
+Lataa ohjelmasta tehty release ja klikkaa __Source code (zip)__. Releaset on listattuna [README](../README.md)-tiedostossa ja käyttöohjeet on validit releasesta 'Viikko 6' alkaen.
+
+1. Mene projektin juurikansioon ja asenna riippuvuudet komennolla:
+
+```
+poetry install
+```
+
+2. Tee alustus:
+
+```
+poetry run invoke initialize
+```
+
+3. Käynnistä sovellus:
+
+```
+poetry run invoke start
+```
+
+Ohjelman voi käytön jälkeen sulkea ja jatkossa käynnistää suoraan käynnistyskomennolla (kohta 3).
+ 
+Ohjelman tietokannan voi nollata alustuskomennolla (kohta 2), jolloin kaikki kertynyt data poistetaan pysyvästi:  
+
+
+## Ohjelman käyttö
+
+
 Sovelluksen avulla voi pitää kirjaa toiminimen myynti- ja ostotapahtumista. Sovellus tarjoaa listauksen kirjatuista tapahtumista yhdenkertaisen
 kirjanpidon periaatteella. Lisäksi sovellus näyttää yhteenvedon kassavirrasta, tuloslaskelmasta sekä alv-kertymästä. Sovellukseen voi luoda useita käyttäjiä.
 
@@ -11,6 +41,8 @@ Käyttäjät-osiosta pääsee luomaan uuden käyttäjän ja kirjautumaan olemass
 Uuden käyttäjän saa luotua Käyttäjät-näkymästä lisäämällä halutun nimen ja klikkaamalla 'Luo käyttäjä'.
 Luodut käyttäjät listataan alla sinisissä palkeissa. Palkkia klikkaamalla voi kirjautua kyseisen käyttäjän näkymään.
 
+![uusi_käyttäjä](images/uusi_kayttaja.png)
+
 ## Tapahtuman lisääminen
 Navigoi Käyttäjä-näkymässä kohtaan 'Lisää tapahtuma'. Täytä vaaditut kentät seuraavasti:
 - Valitse tyypiksi Myynti tai Osto
@@ -20,11 +52,7 @@ Navigoi Käyttäjä-näkymässä kohtaan 'Lisää tapahtuma'. Täytä vaaditut k
 - Lisää kuvaus (pituus 1-50 merkkiä)
 Kun tiedot on syötetty, tapahtuman saa lisättyä klikkaamalla 'Luo tapahtuma'. Sovellus vahvistaa onnistuneen tapahtuman lisäämisen.
 
-## Tapahtuman korjaaminen
-Lisättyä tapahtumaa ei voi muokata tai poistaa. Virheellisen tapahtuman voi oikaista lisäämällä vastaava tapahtuma uudestaan,
-mutta summa -merkkisenä. Näin tapahtumat kumoavat toisensa ja yhteisvaikutus on +/- 0.
-
-![tapahtuman_oikaisu](images/tapahtuman_oikaisu.png)
+![uusi_tapahtuma](images/uusi_tapahtuma.png)
 
 ## Kooste
 Käyttäjät-näkymän Kooste-osio näyttää kirjanpidon tapahtumista aikajärjestyksessä, myynnit ja ostot eroteltuna.
@@ -36,3 +64,11 @@ Lisäksi näkymästä löytyy seuraavat tunnusluvut:
 Kooste-osiossa tapahtumia voi hakea myös aikavälillä valitsemalla alku- ja/tai loppupäivämäärän muodossa 1.1.2000. Klikkaamalla 'Hae', Kooste-
 osio päivittyy ja näyttää sekä tapahtumat että tunnusluvut valitun aikavälin mukaisesti.
 Käyttäjä-näkymästä pääsee takaisin kotivalikkoon klikkaamalla punaista 'Poistu'-painiketta.
+
+![kooste](images/kooste.png)
+
+## Tapahtuman korjaaminen
+Lisättyä tapahtumaa ei voi muokata tai poistaa. Virheellisen tapahtuman voi oikaista lisäämällä vastaava tapahtuma uudestaan,
+mutta summa -merkkisenä. Näin tapahtumat kumoavat toisensa ja yhteisvaikutus on +/- 0.
+
+![tapahtuman_oikaisu](images/tapahtuman_oikaisu.png)
