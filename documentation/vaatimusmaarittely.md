@@ -8,25 +8,46 @@ Tarkoituksena on toteuttaa työpöytäsovellus, jonka avulla käyttäjä(t) voi 
 Käyttäjä voi lisätä uusia myynti- tai ostotapahtumia ja sovellus koostaa näistä yhdenkertaisen kirjanpidon, tarjoaa yhteenvedon ja joitain yksinkertaisia tunnuslukuja käyttäjälle.
 
 ### Käyttäjät
-Käyttäjärooliksi tulee aluksi peruskäyttäjä, joita voi olla useita. Lisäkehityksen myötä mahdollinen uusi rooli voisi olla ulkopuolinen tarkastaja, joka voisi katsoa käyttäjien tapahtumia ja lisätä niihin kommentteja, mutta ei muutoin muokata niitä. Toinen mahdollinen lisärooli on tekninen ylläpitäjä.
+Käyttäjärooliksi tulee kurssin aikana toteutettavassa versiossa peruskäyttäjä, joita voi olla useita.
 
-### Ominaisuudet
-Kyseessä on työpöytäsovellus, joka sisältää yksinkertaisen graafisen käyttöliittymän. Liittymässä on aloitusnäkymä, josta voidaan navigoida käyttäjän näkymään tai luoda uusi käyttäjä.
+### Ominaisuudet ja MVP
+Kyseessä on työpöytäsovellus, joka sisältää yksinkertaisen graafisen käyttöliittymän. Liittymässä on aloitusnäkymä, josta voidaan navigoida käyttäjän näkymään tai luoda uusi käyttäjä. Aloitusnäkymästä löytyy myös info/käyttöohje-osio.
 Käyttäjänäkymässä käyttäjä voi lisätä uusia myynti- tai ostotapahtumia. Käyttäjänäkymästä näkee kertyneet tapahtumat ja niistä joitain tunnuslukuja/koosteita. Peruskoosteet ovat lista tapahtumista ja myyntien ja ostojen summat. Käyttäjät, myynnit ja ostot tallennetaan SQL-tietokantaan.
 
 Perusominaisuudet ✔️
 
-### Toteutus
-Sovellus toimii erityisesti harjoituksena yksinkertaisen sovelluksen toteutukselle. Ensisijainen tavoite on toteuttaa yksinkertainen graafinen käyttöliittymä, joka tarjoaa perustoiminnallisuudet, tallentaa data tietokantaan ja sisältää toimivaa testausta.
+### Toteutus ja lisäominaisuudet
+Sovellus toimii erityisesti harjoituksena yksinkertaisen sovelluksen toteutukselle. Ensisijainen tavoite on toteuttaa yksinkertainen graafinen käyttöliittymä, joka tarjoaa perustoiminnallisuudet, tallentaa datan tietokantaan ja sisältää toimivaa testausta.
 
-Sovelluksen peruslogiikka on yksinkertainen, mutta aihe sen luontoinen, että edistymisen mukaan sovellusta on helppo laajentaa erilaisilla lisäominaisuuksilla. Mahdollisia laajennuksia on esimerkiksi:
-- Alv lisääminen tapahtumiin ✔️
-- Koosteet rajatuilta aikaväliltä ✔️
-- Laajempaa statistiikkaa ✔️
-- Tapahtumien muokkaus
-- Eri tyyppisiä myyntejä ja ostoja
-- Uudet käyttäjäroolit
+Sovelluksen peruslogiikka on yksinkertainen, mutta aihe sen luontoinen, että edistymisen mukaan sovellusta on helppo laajentaa erilaisilla lisäominaisuuksilla. Kurssin aikana toteutettavia laajennuksia on:
 - Käyttöliittymän visuaalinen hiominen ✔️
+- Alv lisääminen tapahtumiin ✔️
+- Laajempaa statistiikkaa ✔️
+- Koosteet rajatuilta aikaväliltä ✔️
+
+### Tarkempi  kuvaus laajennuksista
+
+Käyttöliitymän visuaalinen hiominen tarkoittaa käytännössä sitä, että kevyttä tyylittelyä on käytetty ja esimerkiksi tapahtumat on selkeästi listattuna.
+
+Tapahtumia lisätessä sekä myynneille että ostoille voi valita alv-kannan. Vaihtoehtoina on Suomessa käytetyt 24%, 14%, 10% ja 0%. Alv-kanta, arvonlisäveron määrä sekä alviton summa on eroteltu tapahtumalistauksessa.
+
+Laajentunut statistiikka sisältää seuraavat tiedot:
+- Myyntien bruttosumma. Kuvaa mynneista kassaan kertyneen rahan määrää (valitulta kaudelta)
+- Ostojen bruttosumma vastaavasti
+- Liikevaihto, eli myyntien alviton määrä kaudelta
+- Kulut, eli ostojen alviton määrä
+- Tulos = liikevaihto - kulut
+- Myyntien alv, eli kauden myyntien arvonlisäverojen summa
+- Ostojen alv vastaavasti
+- Verolle suoritettava alv = myyntien alv - ostojen alv
+
+Tapahtumia voi hakea aikaväliltä syöttämällä alku- ja/tai loppupäivämäärän. Esimerkiksi 1.1.2021 - 31.12.2021 haku listaisi kaikki vuoden 2021 tapahtumat. Myös yhteenveto-/tunnusluvut päivittyvät vastaamaan aikavälin tapahtumia.
+
+### Kurssin ulkopuolelle jäävät mahdolliset lisäominaisuudet
+
+- Tuki erilaisille ostotyypeille (esim. edustuskulut, varaston täydennys jne)
+- Useampi käyttäjärooli, esimerkiksi tapahtumien tarkastaja, joka voi lisätä kommentteja tapahtumiin.
+- Käyttäjien poistaminen
 
 ### Luonnoskuvia
 
