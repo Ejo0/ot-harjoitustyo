@@ -42,7 +42,7 @@ manuaalisesti järjestelmätestauksen puolella.
 
 ### Asennus ja käynnistäminen
 
-Ohjelman lataus ja asennus on testattu manuaalisesti Linux-ympäristössä [käyttöohjeiden](/kayttoohje.md) mukaisesti. Myös konfiguraatiota on testattu määrittelemällä
+Ohjelman lataus ja asennus on testattu manuaalisesti Linux-ympäristössä [käyttöohjeiden](documentation/kayttoohje.md) mukaisesti. Myös konfiguraatiota on testattu määrittelemällä
 eri tietokantoja `.env.prod`-tiedostoon.
 
 Ohjelman käynnistys on testattu käyttöohjeiden kuvaamalla tavalla. Jos ohjelmaa yrittää käynnistää ennen tietokannan alustusta,
@@ -50,7 +50,7 @@ tulostuu virheilmoitus.
 
 ### Toiminnallisuudet
 
-[Vaatimusmäärittelyn](/vaatimusmaarittely.md) kuvaamat toiminnallisuudet on testattu manuaalisesti. Testeissä on pyritty antamaan
+[Vaatimusmäärittelyn](documentation/vaatimusmaarittely.md) kuvaamat toiminnallisuudet on testattu manuaalisesti. Testeissä on pyritty antamaan
 eri tyyppisiä virheellisiä syötteitä. Reunatapauksia erimerkiksi päiväysten osalta on käyty manuaalisesti läpi.
 Pääsääntöisesti virhesyötteistä seuraa virheestä kertova ilmoitus käyttöliittymässä.
 
