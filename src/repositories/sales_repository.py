@@ -4,14 +4,29 @@ import db_connector
 
 
 class SalesRepository:
+    """Class that interacts with SQL-database, table 'Sales*
+    """
 
     def __init__(self) -> None:
+        """Connect with database interactor db_connector
+        """
         self.__connector = db_connector.get_db_connector()
 
     def delete_all(self):
+        """Deletes all rows from Sales-table
+        """
         self.__connector.execute("DELETE FROM Sales")
 
     def create(self, user_id: int, event_date: date, amount: int, vat: int, description: str):
+        """Creates new row to Sales-table
+
+        Args:
+            user_id (int): ID of user this sale belongs
+            event_date (date): Date of sale as date, later transformed to standard SQL-format
+            amount (int): Total amount of sale in cents
+            vat (int): Vat percentage of the sale
+            description (str): Description of the sale
+        """
         date_as_str = f"{event_date.year:04d}-{event_date.month:02d}-{event_date.day:02d}"
         self.__connector.execute(
             "INSERT INTO Sales (user_id, event_date, amount, vat, description)" +
@@ -20,6 +35,16 @@ class SalesRepository:
         )
 
     def get_sale_rows_from_range(self, user_id: int, start_date: date, end_date: date):
+        """Returns all sales of an user from given range.
+
+        Args:
+            user_id (int): ID of user
+            start_date (date): Start date of the range, inclusive. If None, gets value 1-1-1
+            end_date (date): End date of the range. None gets value 9999-12-31
+
+        Returns:
+            [list]: List of SaleRow-instances
+        """
         start_date_as_str, end_date_as_str = self._dates_to_str(start_date, end_date)
 
         sale_rows = self.__connector.execute(
@@ -32,6 +57,16 @@ class SalesRepository:
         return self._tuple_to_sale_row(sale_rows)
 
     def total_amount(self, user_id: int, start_date: date, end_date: date):
+        """Returns total amount of sales of an user from given range
+
+        Args:
+            user_id (int): Id of user
+            start_date (date): Start date of range, None is set to 1-1-1
+            end_date (date): End date of range, None -> 9999-12-31
+
+        Returns:
+            int: Sum of sales in cents, including vat
+        """
         start_date_as_str, end_date_as_str = self._dates_to_str(start_date, end_date)
 
         total = self.__connector.execute(
