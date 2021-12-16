@@ -113,3 +113,5 @@ _Sale_ ja _Expense_-oliot sekä näitä käsittelevät servicet ja repositoryt m
 ### Käyttöliittymä
 
 GUI:sta vastaavien luokkien koodi ei ole kovin viimeisteltyä. Koodista löytyy mm. eri tyyppisiä ratkaisuja saman kaltaisiin ongelmiin. Esimerkiksi uuden käyttäjän lisäämisestä vastaava metodi `_create_user`-renderöi lisäämisen jälkeen koko näkymän, vaikka pelkästään käyttäjä-nappien päivitys riittäisi. Luokissa on myös jonkin verran toisteisuutta esimerkiksi tyylittelyihin liittyen.
+
+Aloitusnäkymässä (`Users`) on joitain puutteita logiikan viimeistelyssä. Jos käyttäjä klikkaa 'Luo käyttäjä' kentän ollessa tyhjä, ei uutta käyttäjää luoda, mutta erillistä virheilmoitusta ei näytetä. Nimi-syötteen pituutta ei muutoin olla tällä hetkellä rajattu. Lisäksi käyttäjien määrää ei olla rajattu, mutta aloitusnäkymä ei kuitenkaan skaalaudu. Jos käyttäjiä on useita kymmeniä, loppuu aloitusnäkymästä tila kesken.
