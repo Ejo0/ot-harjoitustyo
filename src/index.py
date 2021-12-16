@@ -22,4 +22,4 @@ if __name__ == '__main__':
     try:
         main()
     except sqlite3.OperationalError:
-        print("Error: database is not initialized")
+        print("Error: database is not initialized or available")
