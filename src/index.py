@@ -1,3 +1,4 @@
+import sqlite3
 from tkinter import Tk, font
 from views.ui import UI
 
@@ -18,4 +19,7 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except sqlite3.OperationalError:
+        print("Error: database is not initialized")
