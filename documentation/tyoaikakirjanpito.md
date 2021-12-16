@@ -22,4 +22,5 @@
 | 10.12. | 4 | Docstring jatkoa, arkkitehtuurikuvaksen tekoa, release, README:n ja dokumentaation päivitys, alustavat käyttöohjeet |
 | 11.12. | 2 | Arkkitehtuurikuvauksen kirjoittelua |
 | 13.12. | 4 | Dokumentaation työstämistä, tarpeettomaksi jääneen koodin poistoa |
-| Yht | 74 |  |
+| 16.12. | 3 | Dokumentaation viimeistelyä |
+| Yht | 77 |  |
