@@ -31,7 +31,7 @@ Testikattavuutta pystyy tarkastelemaan coverage-raportin avulla. Raportin saa tu
 
 Testauskattavuusraportti käsittää [.coveragerc](../.coveragerc)-tiedostossa määritellyn alueen ja kyseiselle alueelle kattavuus on 99%.
 
-[coverage_report](images/coverage_report.png)
+![coverage_report](images/coverage_report.png)
 
 ### Automaatiotestauksen rajoitteet
 
