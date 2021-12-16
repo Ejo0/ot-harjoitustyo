@@ -28,6 +28,8 @@ Yhteenveto-osiossa on mahdollista hakea tapahtumien listaus sekä statistiikka h
 
 [käyttöohjeet](documentation/kayttoohje.md)
 
+[testausdokumentaatio](documentation/testausdokumentaatio.md)
+
 ## Releaset
 
 Ensimmäinen release: [Viikko 5](https://github.com/Ejo0/ot-harjoitustyo/releases/tag/v.viikko5)
