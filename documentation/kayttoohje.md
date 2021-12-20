@@ -24,7 +24,7 @@ poetry run invoke start
 
 Ohjelman voi käytön jälkeen sulkea ja jatkossa käynnistää suoraan käynnistyskomennolla (kohta 3).
  
-Ohjelman tietokannan voi nollata alustuskomennolla (kohta 2), jolloin kaikki kertynyt data poistetaan pysyvästi:  
+Ohjelman tietokannan voi nollata alustuskomennolla (kohta 2), jolloin kaikki kertynyt data poistetaan pysyvästi.  
 
 
 ## Ohjelman käyttö
