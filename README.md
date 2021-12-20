@@ -1,11 +1,11 @@
-_Päivitetty viimeksi 10.12.2021.  
+_Päivitetty viimeksi 20.12.2021.  
 Kurssin __Ohjelmistotekniikka (syksy 2021)__ harjoitustyö._
 
 # SimpleAccountingTool
 
-Kyseessä on työpöytäsovellus, jonka avulla käyttäjä voi pitää kirjaa toiminimensä myynti- ja ostotapahtumista. Sovellukseen voi luoda useita käyttäjiä. Sovelluksen toiminnallisuudet päivittyvät harjoitustyön edetessä. Tarkemmat tiedot suunnitellusta perustoiminnallisuudesta löytyy kohdasta Dokumentaatio -> Vaatimusmäärittely.
+Kyseessä on työpöytäsovellus, jonka avulla käyttäjä voi pitää kirjaa toiminimensä myynti- ja ostotapahtumista. Sovellukseen voi luoda useita käyttäjiä. Sovellukseen on tuotu toiminnallisuuksia harjoitustyön edetessä ja tarkemmat tiedot projektin tavoitteena olleista toiminnallisuuksista löytyy kohdasta Dokumentaatio -> Vaatimusmäärittely.
 
-#### Ominaisuudet tiivistettynä:
+#### Ominaisuudet tiivistettynä
 
 Ohjelman aloitusnäkymässä on mahdollista luoda uusi käyttäjä (parametrina nimi). Lisäksi aloitusnäkymä listaa olemassa olevat käyttäjät, joita klikkaamalla pääsee käyttäjä-näkymään. Aloitusvalikosta löytyy myös info-osio, jossa on sovelluksen käyttöohjeet.
 
@@ -36,26 +36,8 @@ Ensimmäinen release: [Viikko 5](https://github.com/Ejo0/ot-harjoitustyo/release
 
 Toinen release: [Viikko 6](https://github.com/Ejo0/ot-harjoitustyo/releases/tag/v.viikko6)
 
-## Versio
+Kolmas release: [Loppupalautus](https://github.com/Ejo0/ot-harjoitustyo/releases/tag/v.loppupalautus)
 
-__VIIKKO 6__
-- Toiminnallisuuksien osalta ohjelma on kutakuinkin siinä tilassa, johon kurssin aikana on tarkoituksena päästä.
-- Uutena featurena tapahtumien haku aikaväliltä:
-  - Kooste-osiossa voi valita aikavälin (alku- ja/tai loppupvm.). Tapahtumalistat ja statistiikka päivittyvät vastaamaan aikaväliä
-  - Lisäksi Info-osioon on lisätty käyttöohjeet
-  - Muutoin pieniä korjauksia, refaktorointia
-- Testikattavuutta parannettu
-- Refaktorointia ja koodin siistimistä
-- Dokumentaatiota laajennettu:
-  - Docstring-dokumentaatio on aloitettu
-  - Alustava arkkitehtuurikuvaus luotu
-  - Alustavat käyttöohjeet luotu
-  - Uusi release
-
-Lopulliseen palautukseen tehtävänä vielä mm.
-- Koodin siistimistä. Esimerkiksi palautettavan version osalta turhien funktioiden poistoa
-- Dokumentaatio valmiiksi
-- Testit valmiiksi
 
 ## Huomioita
 
